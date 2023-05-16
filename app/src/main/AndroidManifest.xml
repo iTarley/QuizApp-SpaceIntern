@@ -12,7 +12,7 @@
         android:theme="@style/Theme.QuizAppSpaceIntern"
         tools:targetApi="31">
         <activity
-            android:name="com.space.quizapp.MainActivity"
+            android:name="com.space.quizapp.presentation.quiz_activity.QuizActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
