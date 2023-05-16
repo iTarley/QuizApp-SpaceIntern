@@ -1,32 +1,34 @@
 package com.space.quizapp.presentation.ui.home
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+
 import com.space.quizapp.R
+import com.space.quizapp.databinding.FragmentHomeBinding
+import com.space.quizapp.presentation.ui.base.BaseFragment
+import com.space.quizapp.utils.extensions.navigateSafe
+import com.space.quizapp.utils.extensions.viewBinding
+import kotlin.reflect.KClass
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment<HomeViewModel>() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
+    override val layout: Int
+        get() = R.layout.fragment_home
+    override val viewModelClass: KClass<HomeViewModel>
+        get() = HomeViewModel::class
+
+    private val binding by viewBinding(FragmentHomeBinding::bind)
 
     private lateinit var viewModel: HomeViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    override fun onBindViewModel(viewModel: HomeViewModel) {
+        navigate()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun navigate() {
+        binding.blueGpaVectorView.setOnClickListener {
+            navigateSafe(HomeFragmentDirections.actionHomeFragmentToShowPointFragment())
+        }
+        binding.logOutButton.setOnClickListener {
+            navigateSafe(HomeFragmentDirections.actionHomeFragmentToStartFragment())
+        }
     }
-
 }

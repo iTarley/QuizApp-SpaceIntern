@@ -1,32 +1,34 @@
 package com.space.quizapp.presentation.ui.points
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.space.quizapp.R
+import com.space.quizapp.databinding.FragmentShowPointBinding
+import com.space.quizapp.presentation.ui.base.BaseFragment
+import com.space.quizapp.utils.extensions.navigateSafe
+import com.space.quizapp.utils.extensions.popBackStack
+import com.space.quizapp.utils.extensions.viewBinding
+import kotlin.reflect.KClass
 
-class ShowPointFragment : Fragment() {
+class ShowPointFragment : BaseFragment<ShowPointViewModel>() {
 
-    companion object {
-        fun newInstance() = ShowPointFragment()
-    }
+    override val layout: Int
+        get() = R.layout.fragment_show_point
+    override val viewModelClass: KClass<ShowPointViewModel>
+        get() = ShowPointViewModel::class
+
+    private val binding by viewBinding(FragmentShowPointBinding::bind)
 
     private lateinit var viewModel: ShowPointViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_show_point, container, false)
+    override fun onBindViewModel(viewModel: ShowPointViewModel) {
+        navigate()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ShowPointViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun navigate(){
+        binding.navBackImageButton.setOnClickListener {
+            popBackStack(it)
+        }
+        binding.logOutButton.setOnClickListener {
+            navigateSafe(ShowPointFragmentDirections.actionShowPointFragmentToStartFragment())
+        }
     }
-
 }

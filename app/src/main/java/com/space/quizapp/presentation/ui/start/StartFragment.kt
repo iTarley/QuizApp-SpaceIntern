@@ -1,32 +1,34 @@
 package com.space.quizapp.presentation.ui.start
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+
 import com.space.quizapp.R
+import com.space.quizapp.databinding.FragmentStartBinding
+import com.space.quizapp.presentation.ui.base.BaseFragment
+import com.space.quizapp.utils.extensions.navigateSafe
+import com.space.quizapp.utils.extensions.viewBinding
+import kotlin.reflect.KClass
 
-class StartFragment : Fragment() {
+class StartFragment : BaseFragment<StartViewModel>() {
 
-    companion object {
-        fun newInstance() = StartFragment()
-    }
+
+    override val layout: Int
+        get() = R.layout.fragment_start
+    override val viewModelClass: KClass<StartViewModel>
+        get() = StartViewModel::class
+
+    private val binding by viewBinding(FragmentStartBinding::bind)
 
     private lateinit var viewModel: StartViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(StartViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onBindViewModel(viewModel: StartViewModel) {
+        navigate()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_start, container, false)
+    private fun navigate() {
+        binding.logInButton.setOnClickListener {
+            if (binding.inputUserNameEditText.text.toString().isNotEmpty()) {
+                navigateSafe(StartFragmentDirections.actionStartFragmentToHomeFragment())
+            }
+        }
     }
-
 }

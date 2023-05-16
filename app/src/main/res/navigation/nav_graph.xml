@@ -13,6 +13,7 @@
             android:id="@+id/action_startFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:enterAnim="@anim/open_anim"
+            app:popEnterAnim="@anim/back_anim"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
@@ -25,18 +26,31 @@
             android:id="@+id/action_homeFragment_to_showPointFragment"
             app:destination="@id/showPointFragment"
             app:enterAnim="@anim/open_anim"
-            app:popExitAnim="@anim/back_anim" />
+            app:popEnterAnim="@anim/back_anim" />
         <action
             android:id="@+id/action_homeFragment_to_quizFragment"
             app:destination="@id/quizFragment"
             app:enterAnim="@anim/from_bottom"
             app:popExitAnim="@anim/from_top" />
+        <action
+            android:id="@+id/action_homeFragment_to_startFragment"
+            app:destination="@id/startFragment"
+            app:enterAnim="@anim/back_anim"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/showPointFragment"
         android:name="com.space.quizapp.presentation.ui.points.ShowPointFragment"
         android:label="fragment_show_point"
-        tools:layout="@layout/fragment_show_point" />
+        tools:layout="@layout/fragment_show_point" >
+        <action
+            android:id="@+id/action_showPointFragment_to_startFragment"
+            app:destination="@id/startFragment"
+            app:enterAnim="@anim/back_anim"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.space.quizapp.presentation.ui.quiz.QuizFragment"
