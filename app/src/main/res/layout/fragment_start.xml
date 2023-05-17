@@ -43,10 +43,10 @@
             android:layout_marginHorizontal="@dimen/dimen_54dp"
             android:layout_marginTop="@dimen/dimen_70dp"
             android:layout_marginBottom="@dimen/dimen_30dp"
-            app:boxCornerRadiusBottomEnd="@dimen/dimen_28dp"
-            app:boxCornerRadiusBottomStart="@dimen/dimen_28dp"
-            app:boxCornerRadiusTopEnd="@dimen/dimen_28dp"
-            app:boxCornerRadiusTopStart="@dimen/dimen_28dp"
+            app:boxCornerRadiusBottomEnd="@dimen/dimen_20dp"
+            app:boxCornerRadiusBottomStart="@dimen/dimen_20dp"
+            app:boxCornerRadiusTopEnd="@dimen/dimen_20dp"
+            app:boxCornerRadiusTopStart="@dimen/dimen_20dp"
             app:boxStrokeColor="@color/yellow_primary"
             app:boxStrokeWidth="@dimen/dimen_2dp"
             app:hintEnabled="false"
@@ -58,10 +58,10 @@
                 android:id="@+id/inputUserNameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:singleLine="true"
-                android:maxLength="20"
                 android:hint="@string/enter_your_name"
+                android:maxLength="20"
                 android:maxLines="1"
+                android:singleLine="true"
                 android:textAlignment="center" />
         </com.google.android.material.textfield.TextInputLayout>
 
