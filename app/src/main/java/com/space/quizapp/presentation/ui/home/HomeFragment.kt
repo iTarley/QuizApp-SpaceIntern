@@ -5,6 +5,7 @@ import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentHomeBinding
 import com.space.quizapp.presentation.ui.base.BaseFragment
 import com.space.quizapp.utils.extensions.navigateSafe
+import com.space.quizapp.utils.extensions.showDialog
 import com.space.quizapp.utils.extensions.viewBinding
 import kotlin.reflect.KClass
 
@@ -28,7 +29,16 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             navigateSafe(HomeFragmentDirections.actionHomeFragmentToShowPointFragment())
         }
         binding.logOutButton.setOnClickListener {
-            navigateSafe(HomeFragmentDirections.actionHomeFragmentToStartFragment())
+            showLogOutDialog()
         }
+    }
+
+    private fun showLogOutDialog(){
+        showDialog(
+            R.layout.dialog_listener,
+            onPositiveButtonClick = {
+                navigateSafe(HomeFragmentDirections.actionHomeFragmentToStartFragment())
+            }
+        )
     }
 }

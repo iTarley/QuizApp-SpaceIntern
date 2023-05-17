@@ -3,8 +3,10 @@ package com.space.quizapp.presentation.ui.points
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentShowPointBinding
 import com.space.quizapp.presentation.ui.base.BaseFragment
+import com.space.quizapp.presentation.ui.home.HomeFragmentDirections
 import com.space.quizapp.utils.extensions.navigateSafe
 import com.space.quizapp.utils.extensions.popBackStack
+import com.space.quizapp.utils.extensions.showDialog
 import com.space.quizapp.utils.extensions.viewBinding
 import kotlin.reflect.KClass
 
@@ -23,12 +25,21 @@ class ShowPointFragment : BaseFragment<ShowPointViewModel>() {
         navigate()
     }
 
-    private fun navigate(){
+    private fun navigate() {
         binding.navBackImageButton.setOnClickListener {
             popBackStack(it)
         }
         binding.logOutButton.setOnClickListener {
-            navigateSafe(ShowPointFragmentDirections.actionShowPointFragmentToStartFragment())
+            showLogOutDialog()
         }
+    }
+
+    private fun showLogOutDialog() {
+        showDialog(
+            R.layout.dialog_listener,
+            onPositiveButtonClick = {
+                navigateSafe(ShowPointFragmentDirections.actionShowPointFragmentToStartFragment())
+            }
+        )
     }
 }
