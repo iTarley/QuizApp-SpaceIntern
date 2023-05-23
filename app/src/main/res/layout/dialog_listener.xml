@@ -24,7 +24,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/yesButton"
-            style="@style/casual_text_style"
+            style="@style/casual_text_style_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_5dp"
@@ -39,7 +39,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/noButton"
-            style="@style/casual_text_style"
+            style="@style/casual_text_style_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_5dp"

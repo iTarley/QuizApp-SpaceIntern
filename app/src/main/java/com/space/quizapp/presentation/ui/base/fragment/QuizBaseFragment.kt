@@ -1,4 +1,4 @@
-package com.space.quizapp.presentation.ui.base
+package com.space.quizapp.presentation.ui.base.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
 
 /** Base class for all fragments */
 
-abstract class BaseFragment<VM : ViewModel> : Fragment() {
+abstract class QuizBaseFragment<VM : ViewModel> : Fragment() {
 
     protected abstract val layout: Int
     abstract val viewModelClass: KClass<VM>
