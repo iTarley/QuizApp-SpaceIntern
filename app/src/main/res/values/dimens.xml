@@ -62,4 +62,5 @@
     <dimen name="dimens_32sp">32sp</dimen>
     <dimen name="dimen_32sp">32sp</dimen>
     <dimen name="dimen_121dp">121dp</dimen>
+    <dimen name="dimen_53dp">53dp</dimen>
 </resources>

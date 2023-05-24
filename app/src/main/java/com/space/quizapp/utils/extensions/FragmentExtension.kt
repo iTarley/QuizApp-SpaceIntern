@@ -1,8 +1,12 @@
 package com.space.quizapp.utils.extensions
 
+import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
@@ -11,6 +15,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.space.quizapp.R
+import com.space.quizapp.databinding.DialogAlertBinding
 
 fun Fragment.navigateSafe(action: NavDirections) {
     findNavController().currentDestination?.getAction(action.actionId)?.let {

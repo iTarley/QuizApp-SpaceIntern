@@ -19,4 +19,6 @@
     <string name="leaving_question">ნამდვილად გსურს გასვლა?</string>
     <string name="yes">კი</string>
     <string name="no">არა</string>
+    <string name="gpa_score">GPA -&#160;</string>
+    <string name="hello_user">გამარჯობა, </string>
 </resources>

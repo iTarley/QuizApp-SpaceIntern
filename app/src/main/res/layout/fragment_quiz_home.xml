@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_32dp"
         android:layout_marginTop="@dimen/dimen_22dp"
-        android:text="@string/welcome_user"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -8,12 +8,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-fun LifecycleOwner.launchWithLifecycle(
-    block: suspend CoroutineScope.() -> Unit
-) {
-    lifecycleScope.launch { block() }
-}
-
 fun ViewModel.viewModelScope(
     block: suspend CoroutineScope.() -> Unit
 ) {

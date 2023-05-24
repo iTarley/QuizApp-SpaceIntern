@@ -1,15 +1,14 @@
 package com.space.quizapp.presentation.ui.log_in
 
 
-import androidx.lifecycle.lifecycleScope
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentLoginBinding
 import com.space.quizapp.presentation.model.UserUIModel
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
 import com.space.quizapp.utils.Resource
+import com.space.quizapp.utils.extensions.lifecycleScope
 import com.space.quizapp.utils.extensions.navigateSafe
 import com.space.quizapp.utils.extensions.viewBinding
-import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
@@ -22,19 +21,40 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
 
     override fun onBindViewModel() {
         authorizeUser()
+        observeSession()
     }
 
-    private fun authorizeUser() {
+    /**
+     * Observe the session, if session is not empty navigate to home fragment
+     */
+    private fun observeSession() {
+        viewModel.observeSession()
+        lifecycleScope {
+            viewModel.session.observe(this@QuizLogInFragment) {
+                if (it?.isNotEmpty() == true) {
+                    navigateSafe(QuizLogInFragmentDirections.actionQuizLogInFragmentToQuizHomeFragment())
+                }
+            }
+        }
+    }
 
+    /**
+     * Authorize the user
+     */
+    private fun authorizeUser() {
         binding.logInButton.setOnClickListener {
-            if (binding.inputUserNameEditText.text.toString().isNotEmpty()) {
-                val username = binding.inputUserNameEditText.text.toString()
+            val username = binding.inputUserNameEditText.text.toString()
+            if (username.isNotEmpty()) {
                 viewModel.authorizeUser(UserUIModel(username = username))
             }
             observeStatus()
         }
     }
-    private fun observeStatus(){
+
+    /**
+     * Observe the registration status
+     */
+    private fun observeStatus() {
         viewModel.registrationStatus.observe(this) { status ->
             when (status) {
                 is Resource.Success -> {
