@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.home.QuizHomeFragmentQuiz">
+    tools:context=".presentation.ui.home.QuizHomeFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/helloUserTextView"
@@ -50,7 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_28dp"
         android:layout_marginTop="@dimen/dimen_27dp"
-        android:text="@string/gpa_sample"
         app:layout_constraintStart_toStartOf="@+id/blueGpaVectorView"
         app:layout_constraintTop_toTopOf="@+id/blueGpaVectorView" />
 
