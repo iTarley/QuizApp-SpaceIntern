@@ -1,21 +1,21 @@
 package com.space.quizapp.domain.usecase.auth
 
 import com.space.quizapp.domain.model.UserDomainModel
-import com.space.quizapp.domain.repository.UserRepository
+import com.space.quizapp.domain.repository.UserAuthRepository
 
-class AuthorizeUserUseCaseImpl(private val userRepository: UserRepository) : AuthorizeUserUseCase {
+class AuthorizeUserUseCaseImpl(private val userAuthRepository: UserAuthRepository) : AuthorizeUserUseCase {
 
     override suspend fun authorizeUser(user: UserDomainModel): Boolean {
         if (!isValidUsername(user.username)) {
             return false
         }
 
-        val existingUser = userRepository.getUserByUsername(user.username)
+        val existingUser = userAuthRepository.getUserByUsername(user.username)
         if (existingUser != null) {
             return true
         }
 
-        userRepository.saveUser(user)
+        userAuthRepository.saveUser(user)
         return true
     }
 

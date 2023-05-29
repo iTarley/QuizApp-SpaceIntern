@@ -2,12 +2,15 @@ package com.space.quizapp.di
 
 import com.space.quizapp.data.mapper.UserDomainEntityMapper
 import com.space.quizapp.data.mapper.UserEntityDomainMapper
-import com.space.quizapp.data.repository.UserRepositoryImpl
-import com.space.quizapp.domain.repository.UserRepository
+import com.space.quizapp.data.repository.UserAuthRepositoryImpl
+import com.space.quizapp.data.repository.UserSessionRepositoryImpl
+import com.space.quizapp.domain.repository.UserAuthRepository
+import com.space.quizapp.domain.repository.UserSessionRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<UserRepository> { UserRepositoryImpl(get(),get(), UserDomainEntityMapper(),
+    single<UserAuthRepository> { UserAuthRepositoryImpl(get(), UserDomainEntityMapper(),
         UserEntityDomainMapper()
     ) }
+    single<UserSessionRepository> { UserSessionRepositoryImpl(get()) }
 }
