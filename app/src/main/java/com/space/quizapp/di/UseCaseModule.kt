@@ -10,6 +10,8 @@ import com.space.quizapp.domain.usecase.current_user.save.SaveUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.save.SaveUserSessionUseCaseImpl
 import com.space.quizapp.domain.usecase.points.GetUserPointsUseCase
 import com.space.quizapp.domain.usecase.points.GetUserPointsUseCaseImpl
+import com.space.quizapp.domain.usecase.quiz.get.GetQuizUseCase
+import com.space.quizapp.domain.usecase.quiz.get.GetQuizUseCaseImpl
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -20,4 +22,6 @@ val useCaseModule = module {
     single<SaveUserSessionUseCase> { SaveUserSessionUseCaseImpl(get()) }
     single<GetUserSessionUseCase> { GetUserSessionUseCaseImpl(get()) }
     single<ClearUserSessionUseCase> { ClearUserSessionUseCaseImpl(get()) }
+    //Json use cases
+    single <GetQuizUseCase>{ GetQuizUseCaseImpl(get()) }
 }

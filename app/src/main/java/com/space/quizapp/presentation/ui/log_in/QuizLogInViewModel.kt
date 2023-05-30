@@ -24,10 +24,10 @@ class QuizLogInViewModel(
     ) : ViewModel() {
 
     private val _errorStatus = MutableLiveData<Int>()
-    val errorStatus: LiveData<Int> get() = _errorStatus
+    val errorStatus get() = _errorStatus
 
     private val _session = MutableLiveData<String>()
-    val session: LiveData<String?> get() = _session
+    val session get() = _session
 
     private suspend fun getCurrentUserSession():Result<String> = getUserSessionUseCase.invoke()
 

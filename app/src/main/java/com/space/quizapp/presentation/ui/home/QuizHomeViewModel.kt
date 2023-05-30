@@ -1,13 +1,16 @@
 package com.space.quizapp.presentation.ui.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import com.space.quizapp.domain.model.QuizDomainModelItem
 import com.space.quizapp.domain.usecase.current_user.clear.ClearUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.points.GetUserPointsUseCase
+import com.space.quizapp.domain.usecase.quiz.get.GetQuizUseCase
+import com.space.quizapp.presentation.model.QuizUIModel
+import com.space.quizapp.presentation.model.mapper.QuizDomainUIMapper
 import com.space.quizapp.utils.extensions.navigateSafe
 import com.space.quizapp.utils.extensions.viewModelScope
 
@@ -19,29 +22,43 @@ import com.space.quizapp.utils.extensions.viewModelScope
 class QuizHomeViewModel(
     private val getUserPointsUseCase: GetUserPointsUseCase,
     private val getUserSessionUseCase: GetUserSessionUseCase,
-    private val clearUserSessionUseCase: ClearUserSessionUseCase
+    private val clearUserSessionUseCase: ClearUserSessionUseCase,
+    private val getQuizUseCase: GetQuizUseCase,
+    private val domainToUiMapper: QuizDomainUIMapper
 ) : ViewModel() {
 
     private val _userPoints = MutableLiveData<Double?>()
-    val userPoints: LiveData<Double?> get() = _userPoints
+    val userPoints get() = _userPoints
 
     private val _session = MutableLiveData<String>()
-    val session: LiveData<String?> get() = _session
+    val session get() = _session
 
-    private suspend fun getCurrentUserSession():Result<String> = getUserSessionUseCase.invoke()
+    private val _quizData = MutableLiveData<List<QuizUIModel>>()
+    val quizData get() = _quizData
 
-    fun updateSession(){
-        viewModelScope{
+    private suspend fun getCurrentUserSession(): Result<String> = getUserSessionUseCase.invoke()
+
+    fun updateSession() {
+        viewModelScope {
             getCurrentUserSession().getOrNull()?.let {
                 _session.value = it
             }
         }
     }
 
-    fun clearUserSession(navController: NavController,directions: NavDirections){
+    fun fetchQuizData() {
+        viewModelScope {
+            val quiz = getQuizUseCase.invoke().map {
+                domainToUiMapper(it)
+            }
+            _quizData.value = quiz
+        }
+    }
+
+    fun clearUserSession(navController: NavController, directions: NavDirections) {
         viewModelScope {
             clearUserSessionUseCase.invoke()
-            navigateTo(navController,directions)
+            navigateTo(navController, directions)
         }
     }
 
@@ -52,8 +69,8 @@ class QuizHomeViewModel(
         }
     }
 
-    fun navigateTo(navController: NavController,directions: NavDirections){
-        navigateSafe(navController,directions)
+    fun navigateTo(navController: NavController, directions: NavDirections) {
+        navigateSafe(navController, directions)
     }
 }
 

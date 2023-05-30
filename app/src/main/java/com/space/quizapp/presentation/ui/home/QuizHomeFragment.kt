@@ -1,15 +1,16 @@
 package com.space.quizapp.presentation.ui.home
 
 
-import android.graphics.Color
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizHomeBinding
+import com.space.quizapp.domain.model.QuizDomainModelItem
+import com.space.quizapp.presentation.model.QuizUIModel
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
+import com.space.quizapp.presentation.ui.home.adapter.OnClickListener
+import com.space.quizapp.presentation.ui.home.adapter.QuizListAdapter
 import com.space.quizapp.utils.extensions.*
 import kotlin.reflect.KClass
 
@@ -22,9 +23,15 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
 
     private val binding by viewBinding(FragmentQuizHomeBinding::bind)
 
+    private val adapter by lazy {
+        QuizListAdapter()
+    }
+
     override fun onBindViewModel() {
         navigate()
         showGpaScore()
+        observe()
+        setOnClickListener()
     }
 
     private fun showGpaScore() {
@@ -60,7 +67,10 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
 
     private fun navigate() {
         binding.blueGpaVectorView.setOnClickListener {
-            viewModel.navigateTo(findNavController(),QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
+            viewModel.navigateTo(
+                findNavController(),
+                QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment()
+            )
         }
         binding.logOutButton.setOnClickListener {
             showLogOutDialog()
@@ -70,7 +80,26 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     private fun showLogOutDialog() {
         showDialog(R.layout.dialog_listener, onPositiveButtonClick = {
             lifecycleScope {
-                viewModel.clearUserSession(findNavController(),QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment())
+                viewModel.clearUserSession(
+                    findNavController(),
+                    QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment()
+                )
+            }
+        })
+    }
+
+    private fun observe() {
+        binding.startQuizRecyclerView.adapter = adapter
+        viewModel.quizData.observe(viewLifecycleOwner) { quiz ->
+            adapter.submitList(quiz)
+        }
+        viewModel.fetchQuizData()
+    }
+
+    private fun setOnClickListener() {
+        adapter.setListener(object:OnClickListener<QuizUIModel>{
+            override fun onClick(item: QuizUIModel, position: Int) {
+                Toast.makeText(requireContext(), "${item.quizTitle}", Toast.LENGTH_SHORT).show()
             }
         })
     }

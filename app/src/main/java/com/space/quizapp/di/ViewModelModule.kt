@@ -1,6 +1,8 @@
 package com.space.quizapp.di
 
 
+import com.space.quizapp.presentation.model.mapper.QuizDomainUIMapper
+import com.space.quizapp.presentation.model.mapper.QuizQuestionDomainUIMapper
 import com.space.quizapp.presentation.model.mapper.UserUIDomainMapper
 import com.space.quizapp.presentation.ui.home.QuizHomeViewModel
 import com.space.quizapp.presentation.ui.points.QuizPointsViewModel
@@ -15,7 +17,7 @@ val viewModelModule = module {
         QuizLogInViewModel(get(),UserUIDomainMapper(),get(),get())
     }
     viewModel{
-        QuizHomeViewModel(get(),get(),get())
+        QuizHomeViewModel(get(),get(),get(),get(), QuizDomainUIMapper(QuizQuestionDomainUIMapper()))
     }
     viewModel{
         QuizPointsViewModel(get())
