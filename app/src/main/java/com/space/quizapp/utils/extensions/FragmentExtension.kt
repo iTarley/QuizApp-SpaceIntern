@@ -7,20 +7,11 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.space.quizapp.R
-
-fun Fragment.navigateSafe(action: NavDirections) {
-    findNavController().currentDestination?.getAction(action.actionId)?.let {
-        findNavController().navigate(action)
-    }
-}
-fun popBackStack(it: View){
-    Navigation.findNavController(it).popBackStack()
-}
-
 
 //TODO switch findViewById to binding
 fun Fragment.showDialog(layoutResId: Int, onPositiveButtonClick: () -> Unit) {

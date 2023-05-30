@@ -3,9 +3,12 @@ package com.space.quizapp.presentation.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import com.space.quizapp.domain.usecase.current_user.clear.ClearUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.points.GetUserPointsUseCase
+import com.space.quizapp.utils.extensions.navigateSafe
 import com.space.quizapp.utils.extensions.viewModelScope
 
 /**
@@ -20,10 +23,10 @@ class QuizHomeViewModel(
 ) : ViewModel() {
 
     private val _userPoints = MutableLiveData<Double?>()
-    val userPoints: LiveData<Double?> = _userPoints
+    val userPoints: LiveData<Double?> get() = _userPoints
 
     private val _session = MutableLiveData<String>()
-    val session: LiveData<String?> = _session
+    val session: LiveData<String?> get() = _session
 
     private suspend fun getCurrentUserSession():Result<String> = getUserSessionUseCase.invoke()
 
@@ -35,10 +38,10 @@ class QuizHomeViewModel(
         }
     }
 
-    fun clearUserSession(completion: () -> Unit){
+    fun clearUserSession(navController: NavController,directions: NavDirections){
         viewModelScope {
             clearUserSessionUseCase.invoke()
-            completion.invoke()
+            navigateTo(navController,directions)
         }
     }
 
@@ -47,6 +50,10 @@ class QuizHomeViewModel(
             val points = getUserPointsUseCase.getUserPoints(username)
             _userPoints.value = points
         }
+    }
+
+    fun navigateTo(navController: NavController,directions: NavDirections){
+        navigateSafe(navController,directions)
     }
 }
 

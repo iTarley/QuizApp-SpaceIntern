@@ -1,13 +1,12 @@
 package com.space.quizapp.presentation.ui.log_in
 
 
+import androidx.navigation.fragment.findNavController
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentLoginBinding
 import com.space.quizapp.presentation.model.UserUIModel
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
-import com.space.quizapp.utils.Resource
 import com.space.quizapp.utils.extensions.lifecycleScope
-import com.space.quizapp.utils.extensions.navigateSafe
 import com.space.quizapp.utils.extensions.viewBinding
 import kotlin.reflect.KClass
 
@@ -32,7 +31,7 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
         lifecycleScope {
             viewModel.session.observe(this@QuizLogInFragment) {
                 if (it?.isNotEmpty() == true) {
-                    navigateSafe(QuizLogInFragmentDirections.actionQuizLogInFragmentToQuizHomeFragment())
+                    viewModel.navigateToHome(findNavController())
                 }
             }
         }
@@ -45,27 +44,18 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
         binding.logInButton.setOnClickListener {
             val username = binding.inputUserNameEditText.text.toString()
             if (username.isNotEmpty()) {
-                viewModel.authorizeUser(UserUIModel(username = username))
+                viewModel.authorizeUser(UserUIModel(username = username),findNavController())
             }
             observeStatus()
         }
     }
 
     /**
-     * Observe the registration status
+     * Observe the error status
      */
     private fun observeStatus() {
-        viewModel.registrationStatus.observe(this) { status ->
-            when (status) {
-                is Resource.Success -> {
-                    // Handle registration success
-                    navigateSafe(QuizLogInFragmentDirections.actionQuizLogInFragmentToQuizHomeFragment())
-                }
-                is Resource.Error -> {
-                    // Handle registration error
-                    binding.inputLayout.error = status.message
-                }
-            }
+        viewModel.errorStatus.observe(this){
+            binding.inputLayout.error = getString(it)
         }
     }
 }
