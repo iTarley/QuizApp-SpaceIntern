@@ -23,10 +23,10 @@ class QuizHomeViewModel(
 ) : ViewModel() {
 
     private val _userPoints = MutableLiveData<Double?>()
-    val userPoints: LiveData<Double?> = _userPoints
+    val userPoints: LiveData<Double?> get() = _userPoints
 
     private val _session = MutableLiveData<String>()
-    val session: LiveData<String?> = _session
+    val session: LiveData<String?> get() = _session
 
     private suspend fun getCurrentUserSession():Result<String> = getUserSessionUseCase.invoke()
 

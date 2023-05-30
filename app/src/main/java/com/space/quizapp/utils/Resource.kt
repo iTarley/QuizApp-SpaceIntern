@@ -5,5 +5,5 @@ package com.space.quizapp.utils
  */
 sealed class Resource {
     object Success : Resource()
-    data class Error(val message: String) : Resource()
+    data class Error(val message: Int) : Resource()
 }

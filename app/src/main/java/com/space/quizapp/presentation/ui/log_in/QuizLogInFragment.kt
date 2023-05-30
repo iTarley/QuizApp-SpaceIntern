@@ -55,7 +55,7 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
      */
     private fun observeStatus() {
         viewModel.errorStatus.observe(this){
-            binding.inputLayout.error = it.toString()
+            binding.inputLayout.error = getString(it)
         }
     }
 }
