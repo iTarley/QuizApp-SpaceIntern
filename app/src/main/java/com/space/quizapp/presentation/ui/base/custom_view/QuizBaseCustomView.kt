@@ -12,14 +12,15 @@ abstract class QuizBaseCustomView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    protected val path by lazy { Path() }
-    protected val width get() = getWidth().toFloat()
-    protected val height get() = getHeight().toFloat()
+    protected val rectanglePath by lazy { Path() }
+    protected val shadePath by lazy { Path() }
 
-    abstract fun startDrawing(canvas: Canvas)
+    abstract fun startDrawing(canvas: Canvas, width: Float, height: Float)
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        startDrawing(canvas)
+        val width = width.toFloat()
+        val height = height.toFloat()
+        startDrawing(canvas,width,height)
     }
 }

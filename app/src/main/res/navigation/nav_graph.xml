@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/quizLogInFragment">
+    app:startDestination="@id/quizFragment">
     <fragment
         android:id="@+id/quizLogInFragment"
         android:name="com.space.quizapp.presentation.ui.log_in.QuizLogInFragment"
@@ -44,4 +44,9 @@
             app:enterAnim="@anim/back_anim"
             app:popUpTo="@id/nav_graph" />
     </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.space.quizapp.presentation.ui.quiz.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" />
 </navigation>
