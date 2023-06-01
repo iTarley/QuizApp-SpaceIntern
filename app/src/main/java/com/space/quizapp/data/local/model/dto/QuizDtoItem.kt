@@ -9,7 +9,7 @@ data class QuizDtoItem(
     val quizTitle: String?
 ) {
     data class QuestionDto(
-        val answers: List<String?>?,
+        val answers: List<String>,
         val correctAnswer: String?,
         val questionIndex: Int?,
         val questionTitle: String?

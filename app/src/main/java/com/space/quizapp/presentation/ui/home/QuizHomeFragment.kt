@@ -1,15 +1,14 @@
 package com.space.quizapp.presentation.ui.home
 
 
-import android.widget.Toast
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizHomeBinding
-import com.space.quizapp.domain.model.QuizDomainModelItem
 import com.space.quizapp.presentation.model.QuizUIModel
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
-import com.space.quizapp.presentation.ui.home.adapter.OnClickListener
+import com.space.quizapp.presentation.ui.base.adapter.OnClickListener
 import com.space.quizapp.presentation.ui.home.adapter.QuizListAdapter
 import com.space.quizapp.utils.extensions.*
 import kotlin.reflect.KClass
@@ -97,9 +96,9 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun setOnClickListener() {
-        adapter.setListener(object:OnClickListener<QuizUIModel>{
+        adapter.setListener(object: OnClickListener<QuizUIModel> {
             override fun onClick(item: QuizUIModel, position: Int) {
-                Toast.makeText(requireContext(), "${item.quizTitle}", Toast.LENGTH_SHORT).show()
+                viewModel.navigateTo(findNavController(),QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizFragment(position))
             }
         })
     }
