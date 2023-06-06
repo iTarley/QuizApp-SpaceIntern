@@ -58,5 +58,9 @@
             android:name="position"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_quizFragment_to_quizHomeFragment"
+            app:destination="@id/quizHomeFragment"
+            app:enterAnim="@anim/back_anim" />
     </fragment>
 </navigation>

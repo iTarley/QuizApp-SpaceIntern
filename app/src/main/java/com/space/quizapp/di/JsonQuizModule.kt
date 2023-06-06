@@ -18,4 +18,3 @@ val quizModule = module {
         moshi.adapter<List<QuizDtoItem>>(quizItemType)
     }
 }
-

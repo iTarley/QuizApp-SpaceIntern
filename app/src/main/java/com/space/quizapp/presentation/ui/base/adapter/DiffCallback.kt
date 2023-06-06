@@ -1,16 +1,37 @@
 package com.space.quizapp.presentation.ui.base.adapter
 
-import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
+//TODO GADAAKETE
 
-class DiffCallback<M : Any> : DiffUtil.ItemCallback<M>() {
+abstract class BaseDiffUtil<T>(
+    private val oldList: List<T>,
+    private val newList: List<T>
+) : DiffUtil.Callback() {
 
-    override fun areItemsTheSame(oldItem: M, newItem: M): Boolean {
-        return oldItem.hashCode() == newItem.hashCode()
+    override fun getOldListSize(): Int {
+        return oldList.size
     }
 
-    @SuppressLint("DiffUtilEquals")
-    override fun areContentsTheSame(oldItem: M, newItem: M): Boolean {
-        return oldItem == newItem
+    override fun getNewListSize(): Int {
+        return newList.size
     }
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldItem = oldList[oldItemPosition]
+        val newItem = newList[newItemPosition]
+        return areItemsSame(oldItem, newItem)
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldItem = oldList[oldItemPosition]
+        val newItem = newList[newItemPosition]
+        return areContentsSame(oldItem, newItem)
+    }
+
+    protected abstract fun areItemsSame(oldItem: T, newItem: T): Boolean
+
+    protected abstract fun areContentsSame(oldItem: T, newItem: T): Boolean
 }
+
+
+

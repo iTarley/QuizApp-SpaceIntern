@@ -1,17 +1,14 @@
 package com.space.quizapp.presentation.ui.home
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavDirections
-import com.space.quizapp.domain.model.QuizDomainModelItem
 import com.space.quizapp.domain.usecase.current_user.clear.ClearUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.points.GetUserPointsUseCase
 import com.space.quizapp.domain.usecase.quiz.get.GetQuizUseCase
 import com.space.quizapp.presentation.model.QuizUIModel
 import com.space.quizapp.presentation.model.mapper.QuizDomainUIMapper
-import com.space.quizapp.utils.extensions.navigateSafe
+import com.space.quizapp.presentation.ui.base.viewmodel.QuizBaseViewModel
+import com.space.quizapp.presentation.ui.points.QuizPointsFragmentDirections
 import com.space.quizapp.utils.extensions.viewModelScope
 
 /**
@@ -25,7 +22,7 @@ class QuizHomeViewModel(
     private val clearUserSessionUseCase: ClearUserSessionUseCase,
     private val getQuizUseCase: GetQuizUseCase,
     private val domainToUiMapper: QuizDomainUIMapper
-) : ViewModel() {
+) : QuizBaseViewModel() {
 
     private val _userPoints = MutableLiveData<Double?>()
     val userPoints get() = _userPoints
@@ -55,10 +52,10 @@ class QuizHomeViewModel(
         }
     }
 
-    fun clearUserSession(navController: NavController, directions: NavDirections) {
+    fun clearUserSession() {
         viewModelScope {
             clearUserSessionUseCase.invoke()
-            navigateTo(navController, directions)
+            navigate(QuizPointsFragmentDirections.actionQuizPointsFragmentToQuizLogInFragment())
         }
     }
 
@@ -67,10 +64,6 @@ class QuizHomeViewModel(
             val points = getUserPointsUseCase.getUserPoints(username)
             _userPoints.value = points
         }
-    }
-
-    fun navigateTo(navController: NavController, directions: NavDirections) {
-        navigateSafe(navController, directions)
     }
 }
 
