@@ -4,11 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import com.space.quizapp.domain.usecase.current_user.clear.ClearUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.points.GetUserPointsUseCase
-import com.space.quizapp.domain.usecase.quiz.get.GetQuizUseCase
+import com.space.quizapp.domain.usecase.quiz.get.quiz.GetQuizUseCase
 import com.space.quizapp.presentation.model.QuizUIModel
-import com.space.quizapp.presentation.model.mapper.QuizDomainUIMapper
+import com.space.quizapp.presentation.model.mapper.quiz.QuizDomainUIMapper
 import com.space.quizapp.presentation.ui.base.viewmodel.QuizBaseViewModel
-import com.space.quizapp.presentation.ui.points.QuizPointsFragmentDirections
 import com.space.quizapp.utils.extensions.viewModelScope
 
 /**
@@ -21,7 +20,7 @@ class QuizHomeViewModel(
     private val getUserSessionUseCase: GetUserSessionUseCase,
     private val clearUserSessionUseCase: ClearUserSessionUseCase,
     private val getQuizUseCase: GetQuizUseCase,
-    private val domainToUiMapper: QuizDomainUIMapper
+    private val domainToUiMapper: QuizDomainUIMapper,
 ) : QuizBaseViewModel() {
 
     private val _userPoints = MutableLiveData<Double?>()
@@ -43,7 +42,7 @@ class QuizHomeViewModel(
         }
     }
 
-    fun fetchQuizData() {
+    fun fetchQuizData(){
         viewModelScope {
             val quiz = getQuizUseCase.invoke().map {
                 domainToUiMapper(it)
@@ -55,7 +54,7 @@ class QuizHomeViewModel(
     fun clearUserSession() {
         viewModelScope {
             clearUserSessionUseCase.invoke()
-            navigate(QuizPointsFragmentDirections.actionQuizPointsFragmentToQuizLogInFragment())
+            navigate(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment())
         }
     }
 

@@ -62,5 +62,9 @@
             android:id="@+id/action_quizFragment_to_quizHomeFragment"
             app:destination="@id/quizHomeFragment"
             app:enterAnim="@anim/back_anim" />
+        <argument
+            android:name="quizTitle"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

@@ -14,24 +14,22 @@ import com.space.quizapp.utils.extensions.viewBinding
 
 class QuizListAdapter: BaseListAdapter<QuizUIModel, ItemSubjectBinding>(MyItemDiffCallback()) {
 
-    private var listener: OnClickListener<QuizUIModel>? = null
-
-    fun setListener(listener: OnClickListener<QuizUIModel>) {
-        this.listener = listener
-    }
-
     override fun createBinding(parent: ViewGroup): ItemSubjectBinding {
         return parent.viewBinding(ItemSubjectBinding::inflate)
     }
 
-    override fun onBind(binding: ItemSubjectBinding, item: QuizUIModel,position:Int) {
+    override fun onBind(
+        binding: ItemSubjectBinding,
+        item: QuizUIModel,
+        onClickCallback: ((QuizUIModel) -> Unit)?
+    ) {
         with(binding){
             subjectTextView.text = item.quizTitle
             descriptionTextView.text = item.quizDescription
             iconSubjectImageView.load(item.image)
             startImageButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next, 0)
-            setListener(root) {
-                listener?.onClick(item, position)
+            setListener(binding.root) {
+                onClickCallback?.invoke(item)
             }
         }
     }

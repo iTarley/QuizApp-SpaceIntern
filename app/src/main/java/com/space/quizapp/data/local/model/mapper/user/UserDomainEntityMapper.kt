@@ -1,7 +1,7 @@
-package com.space.quizapp.data.local.entity.mapper.user
+package com.space.quizapp.data.local.model.mapper.user
 
 
-import com.space.quizapp.data.local.entity.UserEntity
+import com.space.quizapp.data.local.model.entity.UserEntity
 import com.space.quizapp.domain.model.UserDomainModel
 import com.space.quizapp.utils.mapper.ModelMapper
 

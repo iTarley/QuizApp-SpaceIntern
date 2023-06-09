@@ -5,7 +5,7 @@ import com.space.quizapp.domain.usecase.auth.AuthorizeUserUseCase
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.save.SaveUserSessionUseCase
 import com.space.quizapp.presentation.model.UserUIModel
-import com.space.quizapp.presentation.model.mapper.UserUIDomainMapper
+import com.space.quizapp.presentation.model.mapper.user.UserUIDomainMapper
 import com.space.quizapp.presentation.ui.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.utils.Resource
 import com.space.quizapp.utils.extensions.viewModelScope

@@ -1,4 +1,4 @@
-package com.space.quizapp.data.local.entity
+package com.space.quizapp.data.local.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

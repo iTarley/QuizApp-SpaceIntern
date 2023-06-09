@@ -1,7 +1,6 @@
-package com.space.quizapp.presentation.model
+package com.space.quizapp.domain.model
 
-
-data class QuizUIModel(
+data class QuizDomainModel(
     val id: Int,
     val image: String?,
     val questionsCount: Int?,

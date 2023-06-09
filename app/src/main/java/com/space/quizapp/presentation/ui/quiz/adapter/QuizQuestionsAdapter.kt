@@ -4,26 +4,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.space.quizapp.databinding.ItemAnswerBinding
+import com.space.quizapp.presentation.model.QuizQuestionUIModel
 import com.space.quizapp.presentation.ui.base.adapter.BaseListAdapter
-import com.space.quizapp.presentation.ui.base.adapter.OnClickListener
 import com.space.quizapp.utils.extensions.viewBinding
 
-class QuizQuestionsAdapter:BaseListAdapter<String,ItemAnswerBinding>(MyItemDiffCallback()) {
-
-    private var listener: OnClickListener<String>? = null
-
-    fun setListener(listener: OnClickListener<String>) {
-        this.listener = listener
-    }
+class QuizQuestionsAdapter :
+    BaseListAdapter<QuizQuestionUIModel.Answer, ItemAnswerBinding>(MyItemDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemAnswerBinding {
         return parent.viewBinding(ItemAnswerBinding::inflate)
     }
 
-    override fun onBind(binding: ItemAnswerBinding, item: String,position:Int) {
-        binding.optionTitleTextView.text = item
+    override fun onBind(
+        binding: ItemAnswerBinding,
+        item: QuizQuestionUIModel.Answer,
+        onClickCallback: ((QuizQuestionUIModel.Answer) -> Unit)?
+    ) {
+
+        binding.optionTitleTextView.text = item.answer
+
+
         setListener(binding.root) {
-            listener?.onClick(item, position)
+            onClickCallback?.invoke(item)
         }
     }
 
@@ -33,14 +35,20 @@ class QuizQuestionsAdapter:BaseListAdapter<String,ItemAnswerBinding>(MyItemDiffC
         }
     }
 
-    private class MyItemDiffCallback : DiffUtil.ItemCallback<String>() {
+    private class MyItemDiffCallback : DiffUtil.ItemCallback<QuizQuestionUIModel.Answer>() {
 
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areItemsTheSame(
+            oldItem: QuizQuestionUIModel.Answer,
+            newItem: QuizQuestionUIModel.Answer
+        ): Boolean {
             // Compare based on unique identifiers of the items
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem.answer == newItem.answer
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(
+            oldItem: QuizQuestionUIModel.Answer,
+            newItem: QuizQuestionUIModel.Answer
+        ): Boolean {
             // Compare based on the actual content of the items
             return oldItem == newItem
         }
