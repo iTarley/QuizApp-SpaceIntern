@@ -22,8 +22,6 @@ class QuizQuestionsAdapter :
     ) {
 
         binding.optionTitleTextView.text = item.answer
-
-
         setListener(binding.root) {
             onClickCallback?.invoke(item)
         }

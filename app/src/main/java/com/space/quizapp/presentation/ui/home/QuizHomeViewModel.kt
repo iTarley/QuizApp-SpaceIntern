@@ -1,6 +1,8 @@
 package com.space.quizapp.presentation.ui.home
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.space.quizapp.domain.model.QuizDomainModel
 import com.space.quizapp.domain.usecase.current_user.clear.ClearUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.points.GetUserPointsUseCase
@@ -9,6 +11,7 @@ import com.space.quizapp.presentation.model.QuizUIModel
 import com.space.quizapp.presentation.model.mapper.quiz.QuizDomainUIMapper
 import com.space.quizapp.presentation.ui.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.utils.extensions.viewModelScope
+import com.space.quizapp.utils.network.RequestResource
 
 /**
  * QuizHomeViewModel is responsible for handling the home screen of the user
@@ -29,7 +32,7 @@ class QuizHomeViewModel(
     private val _session = MutableLiveData<String>()
     val session get() = _session
 
-    private val _quizData = MutableLiveData<List<QuizUIModel>>()
+    private val _quizData = MutableLiveData<List<QuizUIModel>?>()
     val quizData get() = _quizData
 
     private suspend fun getCurrentUserSession(): Result<String> = getUserSessionUseCase.invoke()
@@ -42,12 +45,23 @@ class QuizHomeViewModel(
         }
     }
 
-    fun fetchQuizData(){
+    //TODO IMPLEMENT LOADING WITH FLOW
+    fun fetchQuizData() {
         viewModelScope {
-            val quiz = getQuizUseCase.invoke().map {
-                domainToUiMapper(it)
+
+            val quiz = getQuizUseCase.invoke()
+            quiz.status.let {
+                when (it) {
+                    RequestResource.Status.LOADING -> setLoadValue(1)
+                    RequestResource.Status.SUCCESS -> {
+                        val quizList = quiz.data?.map {
+                            domainToUiMapper(it)
+                        }
+                        _quizData.value = quizList
+                    }
+                    RequestResource.Status.ERROR -> setErrorValue(quiz.message.toString())
+                }
             }
-            _quizData.value = quiz
         }
     }
 
