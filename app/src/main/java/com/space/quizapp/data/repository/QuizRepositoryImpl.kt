@@ -26,23 +26,38 @@ class QuizRepositoryImpl(
     private val quizQuestionEntityDtoMapper: QuizQuestionEntityDtoMapper,
     private val apiService: QuizApiService
 ) : QuizRepository, RequestHandler() {
-    
-    //TODO ADD FLOW
+
+
+    private var isInitialDataFetched = false
+
     override suspend fun getQuiz(): RequestResource<List<QuizDomainModel>> {
         val existingData = quizDao.getQuiz()
-        if (existingData.isNotEmpty()) {
+
+        if (isInitialDataFetched) {
             // Return the existing data
-            return RequestResource.success(existingData.map { quizEntityDomainMapper(it) })
+            val existingDataDomainModels = existingData.map { quizEntityDomainMapper(it) }
+            return RequestResource.success(existingDataDomainModels)
         }
 
         val data = apiCall { apiService.retrieveQuestions() }
+
         if (data.status == RequestResource.Status.SUCCESS) {
-            data.data?.forEach {
-                quizDao.insertQuiz(quizDtoEntityMapper(it))
-                quizDao.insertQuizQuestion(quizQuestionEntityDtoMapper(it))
+            val serverData = data.data ?: emptyList()
+
+            if (serverData.isNotEmpty()) {
+                // Insert the new data from the server
+                serverData.forEach {
+                    quizDao.insertQuiz(quizDtoEntityMapper(it))
+                    quizDao.insertQuizQuestion(quizQuestionEntityDtoMapper(it))
+                }
+
+                // Update the flag to indicate that initial data has been fetched
+                isInitialDataFetched = true
+
+                // Return the new data from the server
+                val newDataDomainModels = serverData.map { quizDtoDomainMapper(it) }
+                return RequestResource.success(newDataDomainModels)
             }
-            return RequestResource.success(data.data?.map { quizDtoDomainMapper(it) }
-                ?: emptyList())
         } else if (data.status == RequestResource.Status.ERROR) {
             return RequestResource.error(data.message ?: "Unknown error occurred", null)
         }
@@ -50,8 +65,8 @@ class QuizRepositoryImpl(
         return RequestResource.error("Failed to fetch data", null)
     }
 
-    override suspend fun getQuizQuestion(id: Int): List<QuizQuestionDomainModel> {
-        return quizDao.getQuizQuestion(id).map {
+    override suspend fun getQuizQuestion(subjectId: Int): List<QuizQuestionDomainModel> {
+        return quizDao.getQuizQuestion(subjectId).map {
             quizQuestionEntityDomainMapper(it)
         }
     }

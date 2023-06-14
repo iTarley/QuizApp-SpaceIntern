@@ -101,4 +101,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseSubjectTextView"
         tools:listitem="@layout/item_subject" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

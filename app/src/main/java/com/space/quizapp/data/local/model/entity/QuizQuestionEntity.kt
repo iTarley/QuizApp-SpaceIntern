@@ -18,7 +18,7 @@ data class QuizQuestionEntity(
     val data: List<Answer> = emptyList(),
     val correctAnswer: String,
     val questionIndex: Int,
-    val id: Int,
+    val subjectId: Int,
 ){
     data class Answer(
         val answer:String

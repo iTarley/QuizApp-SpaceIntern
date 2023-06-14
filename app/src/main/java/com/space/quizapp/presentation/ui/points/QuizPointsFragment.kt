@@ -29,7 +29,7 @@ class QuizPointsFragment : QuizBaseFragment<QuizPointsViewModel>() {
     }
 
     private fun showLogOutDialog() {
-        showDialog(R.layout.dialog_listener, onPositiveButtonClick = {
+        showDialog(R.layout.dialog_listener,getString(R.string.leaving_question), onPositiveButtonClick = {
             lifecycleScope {
                 viewModel.clearUserSession()
             }

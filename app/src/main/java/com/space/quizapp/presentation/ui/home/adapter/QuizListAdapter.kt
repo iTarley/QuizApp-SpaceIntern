@@ -21,7 +21,8 @@ class QuizListAdapter: BaseListAdapter<QuizUIModel, ItemSubjectBinding>(MyItemDi
     override fun onBind(
         binding: ItemSubjectBinding,
         item: QuizUIModel,
-        onClickCallback: ((QuizUIModel) -> Unit)?
+        position:Int,
+        onClickCallback: ((QuizUIModel) -> Unit)?,
     ) {
         with(binding){
             subjectTextView.text = item.quizTitle

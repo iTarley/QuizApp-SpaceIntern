@@ -25,4 +25,6 @@
     <string name="quiz_congrats">თქვენ დაასრულეთ ქვიზი</string>
     <string name="wrong_answer">არასწორი პასუხი</string>
     <string name="corrent_answer">სწორი პასუხი</string>
+    <string name="you_have">"შენ დააგროვე "</string>
+    <string name="point">" ქულა"</string>
 </resources>

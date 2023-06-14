@@ -17,7 +17,7 @@ abstract class BaseListAdapter<T : Any, VB : ViewBinding>(
 
     override fun onBindViewHolder(holder: BaseViewHolder<VB>, position: Int) {
         val item = getItem(position)
-        onBind(holder.binding, item, onClickCallback)
+        onBind(holder.binding, item,position, onClickCallback,)
 
     }
 
@@ -28,7 +28,7 @@ abstract class BaseListAdapter<T : Any, VB : ViewBinding>(
     }
 
     protected abstract fun createBinding(parent: ViewGroup): VB
-    protected abstract fun onBind(binding: VB, item: T,onClickCallback: ((T) -> Unit)?)
+    protected abstract fun onBind(binding: VB, item: T,position: Int,onClickCallback: ((T) -> Unit)?)
 
 }
 

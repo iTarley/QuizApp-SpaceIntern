@@ -1,7 +1,7 @@
 package com.space.quizapp.utils.network
 
 data class RequestResource<out T>(
-    val status: Status = Status.LOADING,
+    val status: Status? = null,
     val data: T? = null,
     val message: String? = ""
 ) {
@@ -9,7 +9,6 @@ data class RequestResource<out T>(
     enum class Status {
         SUCCESS,
         ERROR,
-        LOADING
     }
 
     companion object {
@@ -20,10 +19,5 @@ data class RequestResource<out T>(
         fun <T> error(message: String, data: T? = null): RequestResource<T> {
             return RequestResource(Status.ERROR, data, message)
         }
-
-        fun <T> loading(data: T? = null): RequestResource<T> {
-            return RequestResource(Status.LOADING, data, null)
-        }
     }
-
 }

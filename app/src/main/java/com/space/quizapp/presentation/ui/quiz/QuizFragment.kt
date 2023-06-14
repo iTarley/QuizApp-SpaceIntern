@@ -1,15 +1,14 @@
 package com.space.quizapp.presentation.ui.quiz
 
 
+import androidx.activity.addCallback
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizBinding
-import com.space.quizapp.presentation.model.QuizQuestionUIModel
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.quiz.adapter.QuizQuestionsAdapter
-import com.space.quizapp.utils.extensions.observe
-import com.space.quizapp.utils.extensions.viewBinding
+import com.space.quizapp.presentation.ui.quiz.adapter.QuizState
+import com.space.quizapp.utils.extensions.*
 import kotlin.reflect.KClass
 
 class QuizFragment : QuizBaseFragment<QuizViewModel>() {
@@ -21,17 +20,38 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
 
     private val binding by viewBinding(FragmentQuizBinding::bind)
     private val args: QuizFragmentArgs by navArgs()
-
     private val adapter by lazy {
         QuizQuestionsAdapter()
     }
 
     override fun onBind() {
         observe()
+        setBackListener()
     }
 
     private fun setAdapter() {
         binding.quizRecyclerView.adapter = adapter
+    }
+
+    private fun setBackListener() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            showDialog(
+                R.layout.dialog_listener,
+                getString(R.string.leaving_question),
+                onPositiveButtonClick = {
+                    showDialog(
+                        R.layout.dialog_alert,
+                        buildString {
+                            append(getString(R.string.you_have))
+                            append(adapter.quizId)
+                            append(getString(R.string.point))
+                        },
+                        cancelable = false,
+                        onPositiveButtonClick = {
+                            popBackStack(requireView())
+                        })
+                })
+        }
     }
 
     /**
@@ -41,34 +61,33 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
         val position = args.position
         val quizTitle = args.quizTitle
         setAdapter()
-
         viewModel.fetchQuizData(position)
         binding.navTitleTextView.text = quizTitle
 
-        observe(viewModel.quizAnswer) { answer ->
-            adapter.submitList(answer)
+        /**
+         * Observe the quiz data, set the adapter and submit the list
+         */
+        observe(viewModel.quizData) { answer ->
+            adapter.setQuiz(answer)
+            adapter.submitList(answer[adapter.quizId].data)
+            binding.questionTextView.text = answer[adapter.quizId].questionTitle
 
-            val quiz = viewModel.quizData.value
-            val itemId = viewModel.itemId
+            binding.startQuizButton.setOnClickListener {
+                adapter.submitList(answer[adapter.quizId].data)
 
-            if (quiz != null) {
-                binding.questionTextView.text = quiz[itemId].questionTitle
-                validateAnswer(quiz[itemId])
+                if (adapter.quizState == QuizState.FINISHED) {
+                    showDialog(
+                        R.layout.dialog_alert,
+                        buildString {
+                            append(getString(R.string.you_have))
+                            append(adapter.quizId + 1)
+                            append(getString(R.string.point))
+                        },
+                        onPositiveButtonClick = {
+                            popBackStack(requireView())
+                        })
+                }
             }
-        }
-
-        observe(viewModel.correctStatus) {
-            Snackbar.make(binding.root, getString(R.string.corrent_answer), Snackbar.LENGTH_SHORT).show()
-        }
-
-        observe(viewModel.wrongStatus) {
-            Snackbar.make(binding.root, getString(R.string.wrong_answer), Snackbar.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun validateAnswer(quiz:QuizQuestionUIModel){
-        adapter.onItemClickListener{
-            viewModel.validateAnswer(it,quiz)
         }
     }
 }

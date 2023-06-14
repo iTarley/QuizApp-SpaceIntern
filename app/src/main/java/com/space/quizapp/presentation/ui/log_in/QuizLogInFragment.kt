@@ -46,8 +46,8 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
             if (username.isNotEmpty()) {
                 viewModel.authorizeUser(UserUIModel(username = username))
             }
-            observeStatus()
         }
+        observeStatus()
     }
 
     /**

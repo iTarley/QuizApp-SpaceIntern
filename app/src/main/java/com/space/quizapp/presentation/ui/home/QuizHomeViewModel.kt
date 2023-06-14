@@ -45,21 +45,19 @@ class QuizHomeViewModel(
         }
     }
 
-    //TODO IMPLEMENT LOADING WITH FLOW
     fun fetchQuizData() {
         viewModelScope {
 
             val quiz = getQuizUseCase.invoke()
             quiz.status.let {
                 when (it) {
-                    RequestResource.Status.LOADING -> setLoadValue(1)
                     RequestResource.Status.SUCCESS -> {
                         val quizList = quiz.data?.map {
                             domainToUiMapper(it)
                         }
                         _quizData.value = quizList
                     }
-                    RequestResource.Status.ERROR -> setErrorValue(quiz.message.toString())
+                    else -> setErrorValue(quiz.message.toString())
                 }
             }
         }

@@ -12,7 +12,7 @@ class QuizQuestionEntityDtoMapper : ModelMapper<QuizDtoItem, List<QuizQuestionEn
                 data = questionDto.answers.map { QuizQuestionEntity.Answer(it) },
                 correctAnswer = questionDto.correctAnswer,
                 questionIndex = questionDto.questionIndex,
-                id = model.id
+                subjectId = model.id
             )
         }
     }
