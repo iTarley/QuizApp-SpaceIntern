@@ -25,7 +25,7 @@ abstract class QuizBaseViewModel:ViewModel() {
         _loadStatus.value = message
     }
 
-    fun navigate(direction: NavDirections) {
+    fun setNavigation(direction: NavDirections) {
         _navigationState.value = direction
     }
 

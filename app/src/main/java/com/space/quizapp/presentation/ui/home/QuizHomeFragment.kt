@@ -15,6 +15,8 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     override val viewModelClass: KClass<QuizHomeViewModel>
         get() = QuizHomeViewModel::class
 
+    private var currentUser: String? = null
+
     private val binding by viewBinding(FragmentQuizHomeBinding::bind)
 
     private val adapter by lazy {
@@ -22,15 +24,14 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     override fun onBind() {
-        navigate()
+        setNavigation()
         showGpaScore()
-        observe()
+        setObserver()
         setOnClickListener()
     }
 
     private fun showGpaScore() {
         viewModel.updateSession()
-
         /**
          * Observe the session and load the user points
          */
@@ -41,6 +42,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
                     append(it)
                 }
                 viewModel.loadUserPoints(it)
+                currentUser = it
             }
         }
 
@@ -59,10 +61,10 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
         }
     }
 
-    private fun navigate() {
+    private fun setNavigation() {
         with(binding){
             blueGpaVectorView.setOnClickListener {
-                viewModel.navigate(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
+                viewModel.setNavigation(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment(currentUser!!))
             }
             logOutButton.setOnClickListener {
                 showLogOutDialog()
@@ -78,7 +80,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
         })
     }
 
-    private fun observe() {
+    private fun setObserver() {
         binding.startQuizRecyclerView.adapter = adapter
         observe(viewModel.quizData) {
             adapter.submitList(it)
@@ -88,7 +90,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
 
     private fun setOnClickListener() {
         adapter.onItemClickListener {
-            viewModel.navigate(
+            viewModel.setNavigation(
                 QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizFragment(
                     it.quizTitle,
                     it.id

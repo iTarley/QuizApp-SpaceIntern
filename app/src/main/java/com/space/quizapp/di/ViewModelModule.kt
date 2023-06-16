@@ -13,6 +13,9 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
 
+    //TODO DI FOR MAPPERS
+
+
     viewModel {
         QuizLogInViewModel(get(), UserUIDomainMapper(),get(),get())
     }
@@ -20,7 +23,7 @@ val viewModelModule = module {
         QuizHomeViewModel(get(),get(),get(),get(), QuizDomainUIMapper())
     }
     viewModel{
-        QuizPointsViewModel(get())
+        QuizPointsViewModel(get(),get(),QuizDomainUIMapper())
     }
     viewModel{
         QuizViewModel(

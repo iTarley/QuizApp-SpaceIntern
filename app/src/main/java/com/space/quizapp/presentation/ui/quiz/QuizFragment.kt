@@ -1,7 +1,6 @@
 package com.space.quizapp.presentation.ui.quiz
 
 
-import android.util.Log
 import androidx.activity.addCallback
 import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
@@ -26,12 +25,8 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
     }
 
     override fun onBind() {
-        observe()
+        setObserver()
         setBackListener()
-
-        binding.exitImageButton.setOnClickListener {
-            saveGpa(index = adapter.quizId,adapter.quizId + 1)
-        }
     }
 
     private fun setAdapter() {
@@ -44,6 +39,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
                 R.layout.dialog_listener,
                 getString(R.string.leaving_question),
                 onPositiveButtonClick = {
+                    saveGpa(index = adapter.quizId, quizPoints = adapter.quizId)
                     showDialog(
                         R.layout.dialog_alert,
                         buildString {
@@ -63,13 +59,12 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
         observe(viewModel.quizData){
             viewModel.saveGpa(it[index].subjectId, quizPoints)
         }
-
     }
 
     /**
      * Function to observe the quiz data
      */
-    private fun observe() {
+    private fun setObserver() {
         val position = args.position
         val quizTitle = args.quizTitle
         setAdapter()
@@ -88,13 +83,13 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
                 adapter.submitList(answer[adapter.quizId].data)
 
                 if (adapter.quizState == QuizState.FINISHED) {
+                    saveGpa(index = adapter.quizId,adapter.quizId + 1)
                     showDialog(
                         R.layout.dialog_alert,
                         buildString {
                             append(getString(R.string.you_have))
                             append(adapter.quizId + 1)
                             append(getString(R.string.point))
-
                         },
                         cancelable = false,
                         onPositiveButtonClick = {

@@ -7,9 +7,7 @@ import coil.load
 import com.space.quizapp.R
 import com.space.quizapp.databinding.ItemSubjectBinding
 import com.space.quizapp.presentation.model.QuizUIModel
-import com.space.quizapp.presentation.ui.base.adapter.BaseDiffUtil
 import com.space.quizapp.presentation.ui.base.adapter.BaseListAdapter
-import com.space.quizapp.presentation.ui.base.adapter.OnClickListener
 import com.space.quizapp.utils.extensions.viewBinding
 
 class QuizListAdapter: BaseListAdapter<QuizUIModel, ItemSubjectBinding>(MyItemDiffCallback()) {

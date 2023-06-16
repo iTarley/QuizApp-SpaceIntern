@@ -20,20 +20,18 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
 
     override fun onBind() {
         authorizeUser()
-        observeSession()
+        setSessionObserver()
     }
 
     /**
      * Observe the session, if session is not empty navigate to home fragment
      */
-    private fun observeSession() {
+    private fun setSessionObserver() {
         with(viewModel) {
             observeSession()
-            lifecycleScope {
-                observe(session) {
-                    if (it?.isNotEmpty() == true) {
-                        navigate(QuizLogInFragmentDirections.actionQuizLogInFragmentToQuizHomeFragment())
-                    }
+            observe(session) {
+                if (it?.isNotEmpty() == true) {
+                    setNavigation(QuizLogInFragmentDirections.actionQuizLogInFragmentToQuizHomeFragment())
                 }
             }
         }
@@ -49,16 +47,16 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
                 if (username.isNotEmpty()) {
                     viewModel.authorizeUser(UserUIModel(username = username))
                 }
-                observeStatus()
+                setObserver()
             }
         }
-        observeStatus()
+        setObserver()
     }
 
     /**
      * Observe the error status
      */
-    private fun observeStatus() {
+    private fun setObserver() {
         observe(viewModel.errorStatus){
             binding.inputLayout.error = getString(it.toString().toInt())
         }

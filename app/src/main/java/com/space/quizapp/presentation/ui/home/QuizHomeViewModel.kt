@@ -3,7 +3,7 @@ package com.space.quizapp.presentation.ui.home
 import androidx.lifecycle.MutableLiveData
 import com.space.quizapp.domain.usecase.current_user.clear.ClearUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
-import com.space.quizapp.domain.usecase.points.GetUserPointsUseCase
+import com.space.quizapp.domain.usecase.points.get.GetUserPointsUseCase
 import com.space.quizapp.domain.usecase.quiz.get.quiz.GetQuizUseCase
 import com.space.quizapp.presentation.model.QuizUIModel
 import com.space.quizapp.presentation.model.mapper.quiz.QuizDomainUIMapper
@@ -64,7 +64,7 @@ class QuizHomeViewModel(
     fun clearUserSession() {
         viewModelScope {
             clearUserSessionUseCase.invoke()
-            navigate(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment())
+            setNavigation(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment())
         }
     }
 

@@ -15,6 +15,9 @@ interface QuizDao {
     @Query("SELECT * FROM subjects")
     suspend fun getQuiz(): List<QuizSubjectEntity>
 
+    @Query("SELECT subjects.* FROM subjects JOIN user_quiz_points ON subjects.id = user_quiz_points.subjectId WHERE user_quiz_points.userId = :userId")
+    fun getSubjectsByUserId(userId: String): List<QuizSubjectEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuizQuestion(quiz: List<QuizQuestionEntity>)
 

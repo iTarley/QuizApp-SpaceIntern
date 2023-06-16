@@ -29,6 +29,7 @@ class QuizRepositoryImpl(
 
 
     private var isInitialDataFetched = false
+
     //TODO INTERNET CHECK
     override suspend fun getQuiz(): RequestResource<List<QuizDomainModel>> {
         val existingData = quizDao.getQuiz()
@@ -69,5 +70,11 @@ class QuizRepositoryImpl(
         return quizDao.getQuizQuestion(subjectId).map {
             quizQuestionEntityDomainMapper(it)
         }
+    }
+
+    override suspend fun getQuizByUserId(userId: String): List<QuizDomainModel> {
+            return quizDao.getSubjectsByUserId(userId).map {
+                quizEntityDomainMapper(it)
+            }
     }
 }

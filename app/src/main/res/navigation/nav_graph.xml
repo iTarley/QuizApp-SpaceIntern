@@ -48,6 +48,9 @@
             app:destination="@id/quizLogInFragment"
             app:enterAnim="@anim/back_anim"
             app:popUpTo="@id/nav_graph" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
