@@ -25,13 +25,14 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
     }
 
     private fun authorizeUser() {
-
-        binding.logInButton.setOnClickListener {
-            if (binding.inputUserNameEditText.text.toString().isNotEmpty()) {
-                val username = binding.inputUserNameEditText.text.toString()
-                viewModel.authorizeUser(UserUIModel(username = username))
+        with(binding){
+            logInButton.setOnClickListener {
+                if (inputUserNameEditText.text.toString().isNotEmpty()) {
+                    val username = binding.inputUserNameEditText.text.toString()
+                    viewModel.authorizeUser(UserUIModel(username = username))
+                }
+                observeStatus()
             }
-            observeStatus()
         }
     }
     private fun observeStatus(){

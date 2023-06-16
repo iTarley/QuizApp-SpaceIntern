@@ -17,12 +17,12 @@ import kotlinx.coroutines.launch
 class QuizLogInViewModel(
     private val authorizeUserUseCase: AuthorizeUserUseCase,
     private val userUIDomainMapper: UserUIDomainMapper
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _registrationStatus = MutableLiveData<Resource>()
     val registrationStatus: LiveData<Resource> = _registrationStatus
 
-    fun authorizeUser(user:UserUIModel) {
+    fun authorizeUser(user: UserUIModel) {
         viewModelScope {
             val isSuccess = authorizeUserUseCase.authorizeUser(userUIDomainMapper(user))
             _registrationStatus.value = if (isSuccess) {
@@ -31,6 +31,5 @@ class QuizLogInViewModel(
                 Resource.Error("Invalid username")
             }
         }
-
     }
 }

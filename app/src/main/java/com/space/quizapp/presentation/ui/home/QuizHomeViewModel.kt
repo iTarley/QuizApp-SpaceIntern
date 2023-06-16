@@ -25,9 +25,3 @@ class QuizHomeViewModel(
         }
     }
 }
-
-
-
-
-
-
