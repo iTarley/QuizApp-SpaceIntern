@@ -12,8 +12,6 @@ import com.space.quizapp.presentation.model.mapper.UserUIDomainMapper
 import com.space.quizapp.utils.Resource
 import com.space.quizapp.utils.extensions.navigateSafe
 import com.space.quizapp.utils.extensions.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  * QuizLogInViewModel is responsible for handling the log in and registration of the user
@@ -45,7 +43,7 @@ class QuizLogInViewModel(
     }
 
     /**
-     * authorizeUser is responsible for authorizing the user and navigating to home fragment
+     * authorizeUser is responsible for authorizing the user
      */
     fun authorizeUser(user: UserUIModel,navController: NavController){
         viewModelScope{

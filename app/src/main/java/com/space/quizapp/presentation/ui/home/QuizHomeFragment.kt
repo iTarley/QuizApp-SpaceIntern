@@ -1,10 +1,6 @@
 package com.space.quizapp.presentation.ui.home
 
 
-import android.graphics.Color
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.space.quizapp.R
@@ -59,11 +55,13 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun navigate() {
-        binding.blueGpaVectorView.setOnClickListener {
-            viewModel.navigateTo(findNavController(),QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
-        }
-        binding.logOutButton.setOnClickListener {
-            showLogOutDialog()
+        with(binding) {
+            blueGpaVectorView.setOnClickListener {
+                navigateSafe(findNavController(),QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
+            }
+            logOutButton.setOnClickListener {
+                showLogOutDialog()
+            }
         }
     }
 

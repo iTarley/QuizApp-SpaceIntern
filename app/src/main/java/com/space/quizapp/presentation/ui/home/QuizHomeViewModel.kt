@@ -51,14 +51,9 @@ class QuizHomeViewModel(
             _userPoints.value = points
         }
     }
+    //TODO BETTER NAVIGATION IS IN THE NEXT PR
 
     fun navigateTo(navController: NavController,directions: NavDirections){
         navigateSafe(navController,directions)
     }
 }
-
-
-
-
-
-
