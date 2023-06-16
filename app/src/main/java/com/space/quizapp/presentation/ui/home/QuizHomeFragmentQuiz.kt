@@ -25,11 +25,14 @@ class QuizHomeFragmentQuiz : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun navigate() {
-        binding.blueGpaVectorView.setOnClickListener {
-            navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointFragment())
-        }
-        binding.logOutButton.setOnClickListener {
-            showLogOutDialog()
+
+        with(binding){
+            blueGpaVectorView.setOnClickListener {
+                navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointFragment())
+            }
+            logOutButton.setOnClickListener {
+                showLogOutDialog()
+            }
         }
     }
 

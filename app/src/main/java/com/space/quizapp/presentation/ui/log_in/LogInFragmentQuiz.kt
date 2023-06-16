@@ -23,9 +23,11 @@ class LogInFragmentQuiz : QuizBaseFragment<LogInViewModel>() {
     }
 
     private fun navigate() {
-        binding.logInButton.setOnClickListener {
-            if (binding.inputUserNameEditText.text.toString().isNotEmpty()) {
-                navigateSafe(LogInFragmentDirections.actionLoginFragmentToQuizHomeFragment())
+        with(binding){
+            logInButton.setOnClickListener {
+                if(inputUserNameEditText.text.toString().isNotEmpty()){
+                    navigateSafe(LogInFragmentDirections.actionLoginFragmentToQuizHomeFragment())
+                }
             }
         }
     }

@@ -25,11 +25,13 @@ class QuizPointsFragmentQuiz : QuizBaseFragment<QuizPointsViewModel>() {
     }
 
     private fun navigate() {
-        binding.navBackImageButton.setOnClickListener {
-            popBackStack(it)
-        }
-        binding.logOutButton.setOnClickListener {
-            showLogOutDialog()
+        with(binding){
+            navBackImageButton.setOnClickListener {
+                popBackStack(it)
+            }
+            logOutButton.setOnClickListener {
+                showLogOutDialog()
+            }
         }
     }
 
