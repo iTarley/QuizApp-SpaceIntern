@@ -26,6 +26,8 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
     /**
      * Observe the session, if session is not empty navigate to home fragment
      */
+
+    // NAVIGATION FIXED IN NEXT PR
     private fun observeSession() {
         viewModel.observeSession()
         lifecycleScope {
@@ -41,12 +43,14 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
      * Authorize the user
      */
     private fun authorizeUser() {
-        binding.logInButton.setOnClickListener {
-            val username = binding.inputUserNameEditText.text.toString()
-            if (username.isNotEmpty()) {
-                viewModel.authorizeUser(UserUIModel(username = username),findNavController())
+        with(binding) {
+            logInButton.setOnClickListener {
+                val username = inputUserNameEditText.text.toString()
+                if (username.isNotEmpty()) {
+                    viewModel.authorizeUser(UserUIModel(username = username),findNavController())
+                }
+                observeStatus()
             }
-            observeStatus()
         }
     }
 

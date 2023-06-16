@@ -43,7 +43,7 @@ class QuizLogInViewModel(
     }
 
     /**
-     * authorizeUser is responsible for authorizing the user and navigating to home fragment
+     * authorizeUser is responsible for authorizing the user
      */
     fun authorizeUser(user: UserUIModel,navController: NavController){
         viewModelScope{
