@@ -1,4 +1,4 @@
-package com.space.quizapp.ui.main
+package com.space.quizapp.presentation.ui.start
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,17 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.space.quizapp.R
 
-class MainFragment : Fragment() {
+class StartFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = StartFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: StartViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(StartViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
@@ -26,7 +26,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return inflater.inflate(R.layout.fragment_start, container, false)
     }
 
 }

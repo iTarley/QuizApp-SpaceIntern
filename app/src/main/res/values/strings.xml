@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Quiz App - Space Intern</string>
+    <string name="my_first_quiz">ჩემი პირველი ქვიზი</string>
+    <string name="enter_your_name">შეიყვანე სახელი</string>
+    <string name="start_quiz">ქვიზის დაწყება</string>
+    <string name="welcome_user">გამარჯობა, user</string>
+    <string name="details">დეტალურად</string>
+    <string name="gpa_sample">GPA -</string>
+    <string name="choose_subject">აირჩიე საგანი</string>
+    <string name="exit_logo">exitlogo</string>
+    <string name="open_quiz">open quiz</string>
+    <string name="earned_points">დაგროვილი ქულები</string>
+    <string name="zero_points_warning">🧐\nსამწუხაროდ,\n ქულები ჯერ არ გაქვს დაგროვილი.</string>
+    <string name="next">შემდეგი</string>
+    <string name="close">დახურვა</string>
+    <string name="cong_emoji">🎉</string>
+    <string name="congratulation">გილოცავ!</string>
+    <string name="user_points">შენ დააგროვე 0 ქულა</string>
+    <string name="leaving_question">ნამდვილად გსურს გასვლა?</string>
+    <string name="yes">კი</string>
+    <string name="no">არა</string>
 </resources>

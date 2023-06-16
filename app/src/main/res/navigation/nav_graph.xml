@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.space.quizapp.presentation.ui.start.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/open_anim"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.space.quizapp.presentation.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_showPointFragment"
+            app:destination="@id/showPointFragment"
+            app:enterAnim="@anim/open_anim"
+            app:popExitAnim="@anim/back_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_quizFragment"
+            app:destination="@id/quizFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:popExitAnim="@anim/from_top" />
+    </fragment>
+    <fragment
+        android:id="@+id/showPointFragment"
+        android:name="com.space.quizapp.presentation.ui.points.ShowPointFragment"
+        android:label="fragment_show_point"
+        tools:layout="@layout/fragment_show_point" />
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.space.quizapp.presentation.ui.quiz.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" />
+</navigation>
