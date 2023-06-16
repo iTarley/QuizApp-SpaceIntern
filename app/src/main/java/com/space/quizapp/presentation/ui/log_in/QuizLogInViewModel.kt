@@ -19,7 +19,7 @@ class QuizLogInViewModel(
     private val userUIDomainMapper: UserUIDomainMapper,
     private val saveUserSessionUseCase: SaveUserSessionUseCase,
     private val getUserSessionUseCase: GetUserSessionUseCase
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _registrationStatus = MutableLiveData<Resource>()
     val registrationStatus: LiveData<Resource> = _registrationStatus
@@ -27,13 +27,13 @@ class QuizLogInViewModel(
     private val _session = MutableLiveData<String>()
     val session: LiveData<String?> = _session
 
-    private suspend fun getCurrentUserSession():Result<String> = getUserSessionUseCase.invoke()
+    private suspend fun getCurrentUserSession(): Result<String> = getUserSessionUseCase.invoke()
 
     /**
      * observeSession is responsible for observing the current user session
      */
-    fun observeSession(){
-        viewModelScope{
+    fun observeSession() {
+        viewModelScope {
             getCurrentUserSession().getOrNull()?.let {
                 _session.value = it
             }
@@ -43,7 +43,7 @@ class QuizLogInViewModel(
     /**
      * authorizeUser is responsible for authorizing the user
      */
-    fun authorizeUser(user:UserUIModel) {
+    fun authorizeUser(user: UserUIModel) {
         viewModelScope {
             val isSuccess = authorizeUserUseCase.authorizeUser(userUIDomainMapper(user))
             _registrationStatus.value = if (isSuccess) {
@@ -53,6 +53,5 @@ class QuizLogInViewModel(
                 Resource.Error("Invalid username")
             }
         }
-
     }
 }
