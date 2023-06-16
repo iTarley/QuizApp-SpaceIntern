@@ -23,7 +23,6 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
 
     override fun onBindViewModel() {
         navigate()
-        showGpaScore()
     }
 
     private fun showGpaScore() {
@@ -58,11 +57,13 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun navigate() {
-        binding.blueGpaVectorView.setOnClickListener {
-            navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
-        }
-        binding.logOutButton.setOnClickListener {
-            showLogOutDialog()
+        with(binding) {
+            blueGpaVectorView.setOnClickListener {
+                navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
+            }
+            logOutButton.setOnClickListener {
+                showLogOutDialog()
+            }
         }
     }
 

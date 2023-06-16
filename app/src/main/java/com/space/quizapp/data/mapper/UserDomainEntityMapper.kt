@@ -7,9 +7,12 @@ import com.space.quizapp.utils.mapper.ModelMapper
 
 class UserDomainEntityMapper : ModelMapper<UserDomainModel, UserEntity> {
     override operator fun invoke(model: UserDomainModel): UserEntity =
-        UserEntity(
-            id = model.id,
-            username = model.username,
-            points = model.points
-        )
+        with(model){
+            UserEntity(
+                id = id,
+                username = username,
+                points = points
+            )
+        }
+
 }

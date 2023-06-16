@@ -53,5 +53,6 @@ class QuizLogInViewModel(
                 Resource.Error("Invalid username")
             }
         }
+
     }
 }

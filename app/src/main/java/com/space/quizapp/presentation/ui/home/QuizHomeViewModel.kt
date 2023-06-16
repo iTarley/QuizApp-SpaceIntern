@@ -49,9 +49,3 @@ class QuizHomeViewModel(
         }
     }
 }
-
-
-
-
-
-
