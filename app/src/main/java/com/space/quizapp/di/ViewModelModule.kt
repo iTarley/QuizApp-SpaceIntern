@@ -23,8 +23,11 @@ val viewModelModule = module {
         QuizPointsViewModel(get())
     }
     viewModel{
-        QuizViewModel(get(),
-            QuestionDomainUIMapper()
+        QuizViewModel(
+            get(),
+            QuestionDomainUIMapper(),
+            get(),
+            get()
         )
     }
 }

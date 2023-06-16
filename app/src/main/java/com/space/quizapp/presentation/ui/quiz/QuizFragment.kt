@@ -1,6 +1,7 @@
 package com.space.quizapp.presentation.ui.quiz
 
 
+import android.util.Log
 import androidx.activity.addCallback
 import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
@@ -27,6 +28,10 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
     override fun onBind() {
         observe()
         setBackListener()
+
+        binding.exitImageButton.setOnClickListener {
+            saveGpa(index = adapter.quizId,adapter.quizId + 1)
+        }
     }
 
     private fun setAdapter() {
@@ -52,6 +57,13 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
                         })
                 })
         }
+    }
+
+    private fun saveGpa(index:Int,quizPoints:Int){
+        observe(viewModel.quizData){
+            viewModel.saveGpa(it[index].subjectId, quizPoints)
+        }
+
     }
 
     /**
@@ -82,7 +94,9 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
                             append(getString(R.string.you_have))
                             append(adapter.quizId + 1)
                             append(getString(R.string.point))
+
                         },
+                        cancelable = false,
                         onPositiveButtonClick = {
                             popBackStack(requireView())
                         })
