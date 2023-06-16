@@ -1,8 +1,6 @@
 package com.space.quizapp.presentation.ui.home
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.space.quizapp.domain.model.QuizDomainModel
 import com.space.quizapp.domain.usecase.current_user.clear.ClearUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.points.GetUserPointsUseCase
@@ -79,9 +77,3 @@ class QuizHomeViewModel(
         }
     }
 }
-
-
-
-
-
-

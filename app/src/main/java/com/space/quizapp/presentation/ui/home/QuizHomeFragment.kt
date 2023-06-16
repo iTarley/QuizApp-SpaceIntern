@@ -61,11 +61,13 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun navigate() {
-        binding.blueGpaVectorView.setOnClickListener {
-            viewModel.navigate(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
-        }
-        binding.logOutButton.setOnClickListener {
-            showLogOutDialog()
+        with(binding){
+            blueGpaVectorView.setOnClickListener {
+                viewModel.navigate(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
+            }
+            logOutButton.setOnClickListener {
+                showLogOutDialog()
+            }
         }
     }
 
