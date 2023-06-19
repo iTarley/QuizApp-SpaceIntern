@@ -1,6 +1,7 @@
 package com.space.quizapp.presentation.ui.quiz
 
 
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
@@ -34,29 +35,36 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
     }
 
     private fun setBackListener() {
-        requireActivity().onBackPressedDispatcher.addCallback {
-            showDialog(
-                R.layout.dialog_listener,
-                getString(R.string.leaving_question),
-                onPositiveButtonClick = {
-                    saveGpa(index = adapter.quizId, quizPoints = adapter.quizId)
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (adapter.quizId == 0) {
+                    popBackStack(requireView())
+                } else {
                     showDialog(
-                        R.layout.dialog_alert,
-                        buildString {
-                            append(getString(R.string.you_have))
-                            append(adapter.quizId)
-                            append(getString(R.string.point))
-                        },
-                        cancelable = false,
+                        R.layout.dialog_listener,
+                        getString(R.string.leaving_question),
                         onPositiveButtonClick = {
-                            popBackStack(requireView())
-                        })
-                })
+                            saveGpa(index = adapter.quizId, quizPoints = adapter.quizId)
+                            val message = String.format(getString(R.string.you_have), adapter.quizId)
+                            showDialog(
+                                R.layout.dialog_alert,
+                                message,
+                                cancelable = false,
+                                onPositiveButtonClick = {
+                                    popBackStack(requireView())
+                                }
+                            )
+                        }
+                    )
+                }
+            }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
-    private fun saveGpa(index:Int,quizPoints:Int){
-        observe(viewModel.quizData){
+
+    private fun saveGpa(index: Int, quizPoints: Int) {
+        observe(viewModel.quizData) {
             viewModel.saveGpa(it[index].subjectId, quizPoints)
         }
     }
@@ -78,19 +86,14 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             adapter.setQuiz(answer)
             adapter.submitList(answer[adapter.quizId].data)
             binding.questionTextView.text = answer[adapter.quizId].questionTitle
-
             binding.startQuizButton.setOnClickListener {
                 adapter.submitList(answer[adapter.quizId].data)
-
                 if (adapter.quizState == QuizState.FINISHED) {
-                    saveGpa(index = adapter.quizId,adapter.quizId + 1)
+                    saveGpa(index = adapter.quizId, adapter.quizId.inc())
+                    val message = String.format(getString(R.string.you_have), adapter.quizId.inc())
                     showDialog(
                         R.layout.dialog_alert,
-                        buildString {
-                            append(getString(R.string.you_have))
-                            append(adapter.quizId + 1)
-                            append(getString(R.string.point))
-                        },
+                        message,
                         cancelable = false,
                         onPositiveButtonClick = {
                             popBackStack(requireView())

@@ -4,6 +4,7 @@ import com.space.quizapp.data.local.model.mapper.quiz.QuizDtoEntityMapper
 import com.space.quizapp.data.local.model.mapper.quiz.QuizEntityDomainMapper
 import com.space.quizapp.data.local.model.mapper.quiz_question.QuizQuestionEntityDtoMapper
 import com.space.quizapp.data.local.model.mapper.quiz.QuizDtoDomainMapper
+import com.space.quizapp.data.local.model.mapper.quiz_point.QuizPointEntityDomainMapper
 import com.space.quizapp.data.local.model.mapper.user.UserDomainEntityMapper
 import com.space.quizapp.data.local.model.mapper.user.UserEntityDomainMapper
 import com.space.quizapp.data.local.model.mapper.quiz_question.QuizQuestionEntityDomainMapper
@@ -33,6 +34,7 @@ val repositoryModule = module {
         QuizDtoDomainMapper(),
         QuizDtoEntityMapper(),
         QuizEntityDomainMapper(),
+        QuizPointEntityDomainMapper(),
         QuizQuestionEntityDomainMapper(),
         QuizQuestionEntityDtoMapper(),
         get()

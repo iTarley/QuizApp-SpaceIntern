@@ -6,8 +6,7 @@ import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizPointBinding
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
-import com.space.quizapp.presentation.ui.home.adapter.QuizListAdapter
-import com.space.quizapp.presentation.ui.quiz.QuizFragmentArgs
+import com.space.quizapp.presentation.ui.points.adapter.QuizPointsListAdapter
 import com.space.quizapp.utils.extensions.*
 import kotlin.reflect.KClass
 
@@ -26,16 +25,18 @@ class QuizPointsFragment : QuizBaseFragment<QuizPointsViewModel>() {
     }
 
     private val adapter by lazy {
-        QuizListAdapter()
+        QuizPointsListAdapter()
     }
 
     private fun setObserver(){
         setAdapter()
         viewModel.getQuiz(args.userId)
         observe(viewModel.quizData){
-            if (it != null) {
+            if (it.isNotEmpty()) {
                 binding.notEarnedTextView.visibility = View.GONE
                 adapter.submitList(it)
+            }else{
+                binding.notEarnedTextView.visibility = View.VISIBLE
             }
         }
     }

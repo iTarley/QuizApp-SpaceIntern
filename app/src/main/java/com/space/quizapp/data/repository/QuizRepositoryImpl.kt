@@ -6,10 +6,12 @@ import com.space.quizapp.data.local.model.mapper.quiz.QuizDtoEntityMapper
 import com.space.quizapp.data.local.model.mapper.quiz.QuizEntityDomainMapper
 import com.space.quizapp.data.local.model.mapper.quiz_question.QuizQuestionEntityDtoMapper
 import com.space.quizapp.data.local.model.mapper.quiz.QuizDtoDomainMapper
+import com.space.quizapp.data.local.model.mapper.quiz_point.QuizPointEntityDomainMapper
 import com.space.quizapp.data.local.model.mapper.quiz_question.QuizQuestionEntityDomainMapper
 import com.space.quizapp.data.remote.service.QuizApiService
 import com.space.quizapp.domain.model.QuizQuestionDomainModel
 import com.space.quizapp.domain.model.QuizDomainModel
+import com.space.quizapp.domain.model.QuizPointsDomainModel
 import com.space.quizapp.domain.repository.QuizRepository
 import com.space.quizapp.utils.network.RequestHandler
 import com.space.quizapp.utils.network.RequestResource
@@ -21,6 +23,7 @@ class QuizRepositoryImpl(
     private val quizDtoDomainMapper: QuizDtoDomainMapper,
     private val quizDtoEntityMapper: QuizDtoEntityMapper,
     private val quizEntityDomainMapper: QuizEntityDomainMapper,
+    private val quizPointEntityDomainMapper: QuizPointEntityDomainMapper,
     //mappers for quiz questions
     private val quizQuestionEntityDomainMapper: QuizQuestionEntityDomainMapper,
     private val quizQuestionEntityDtoMapper: QuizQuestionEntityDtoMapper,
@@ -72,9 +75,9 @@ class QuizRepositoryImpl(
         }
     }
 
-    override suspend fun getQuizByUserId(userId: String): List<QuizDomainModel> {
+    override suspend fun getQuizByUserId(userId: String): List<QuizPointsDomainModel> {
             return quizDao.getSubjectsByUserId(userId).map {
-                quizEntityDomainMapper(it)
+                quizPointEntityDomainMapper(it)
             }
     }
 }

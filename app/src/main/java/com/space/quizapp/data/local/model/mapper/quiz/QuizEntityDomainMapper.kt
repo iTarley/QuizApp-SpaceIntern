@@ -11,7 +11,6 @@ class QuizEntityDomainMapper  : ModelMapper<QuizSubjectEntity, QuizDomainModel> 
             quizTitle = model.quizTitle,
             quizDescription = model.quizDescription,
             image = model.image,
-            questionsCount = model.questionsCount,
         )
     }
 }
