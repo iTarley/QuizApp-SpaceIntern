@@ -10,6 +10,8 @@ import com.space.quizapp.presentation.model.mapper.quiz.QuizDomainUIMapper
 import com.space.quizapp.presentation.ui.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.utils.extensions.viewModelScope
 import com.space.quizapp.utils.network.RequestResource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * QuizHomeViewModel is responsible for handling the home screen of the user
@@ -70,7 +72,9 @@ class QuizHomeViewModel(
 
     fun loadUserPoints(username: String) {
         viewModelScope {
-            val points = getUserPointsUseCase.getUserPoints(username)
+            val points = withContext(Dispatchers.IO){
+                getUserPointsUseCase.getUserPoints(username)
+            }
             _userPoints.value = points
         }
     }

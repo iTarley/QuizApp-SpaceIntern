@@ -1,6 +1,7 @@
 package com.space.quizapp.presentation.ui.quiz
 
 
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
@@ -86,8 +87,10 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             adapter.setQuizList(answer)
             adapter.submitList(answer[adapter.quizId].data)
             binding.questionTextView.text = answer[adapter.quizId].questionTitle
+            Log.d("luka", "setObserver: ${answer[adapter.quizId].questionTitle}")
             binding.startQuizButton.setOnClickListener {
                 adapter.submitList(answer[adapter.quizId].data)
+                binding.questionTextView.text = answer[adapter.quizId].questionTitle
                 adapter.clickable = true
                 if (adapter.lastQuestion) {
                     saveGpa(index = adapter.quizId, adapter.points)

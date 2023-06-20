@@ -11,7 +11,6 @@ class UserDomainEntityMapper() : ModelMapper<UserDomainModel, UserEntity> {
             UserEntity(
                 id = id,
                 username = username,
-                points = points
             )
         }
 

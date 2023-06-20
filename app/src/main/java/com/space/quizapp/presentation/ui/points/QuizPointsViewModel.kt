@@ -36,7 +36,7 @@ class QuizPointsViewModel(
     }
 
     fun getQuiz(userId: String) {
-        viewModelScope.launch {
+        viewModelScope {
             val quiz = withContext(Dispatchers.IO) {
                 getQuizForGpaUseCase.invoke(userId).map {
                     quizPointDomainUIMapper(it)
