@@ -14,7 +14,7 @@ import com.space.quizapp.data.local.model.entity.type_converter.ListAnswerConver
 
 @Database(
     entities = [UserEntity::class, QuizQuestionEntity::class, QuizSubjectEntity::class, UserQuizPointsEntity::class],
-    version = 1,
+    version = 12,
     exportSchema = false
 )
 @TypeConverters(ListAnswerConverter::class)

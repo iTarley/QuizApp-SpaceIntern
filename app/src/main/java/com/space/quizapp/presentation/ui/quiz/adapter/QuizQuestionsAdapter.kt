@@ -14,27 +14,16 @@ import com.space.quizapp.presentation.ui.base.adapter.BaseViewHolder
 import com.space.quizapp.presentation.ui.quiz.adapter.manager.QuizManager
 import com.space.quizapp.utils.extensions.setTint
 
-class QuizQuestionsAdapter(private val onItemClick: (QuizQuestionUIModel.Answer) -> Unit) :
+class QuizQuestionsAdapter() :
     BaseListAdapter<QuizQuestionUIModel.Answer, ItemAnswerBinding>(MyItemDiffCallback()) {
 
-    var quiz: List<QuizQuestionUIModel>? = listOf()
     var quizId = 0
     var points = 0
     var lastQuestion = false
     var clickable = true
-
     private var recyclerView: RecyclerView? = null
+    private var quizManager: QuizManager = QuizManager(this)
 
-    fun setRecyclerView(recyclerView: RecyclerView) {
-        this.recyclerView = recyclerView
-    }
-
-    private val quizManager: QuizManager = QuizManager(this)
-
-    fun setQuizList(quiz: List<QuizQuestionUIModel>?) {
-        this.quiz = quiz
-        notifyDataSetChanged()
-    }
 
     fun getItemBinding(position: Int): ViewBinding? {
         val viewHolder = recyclerView!!.findViewHolderForAdapterPosition(position)
@@ -49,18 +38,21 @@ class QuizQuestionsAdapter(private val onItemClick: (QuizQuestionUIModel.Answer)
 
     override fun onBind(
         binding: ItemAnswerBinding,
-        item: QuizQuestionUIModel.Answer
+        item: QuizQuestionUIModel.Answer,
+        position: Int
     ) {
-        binding.optionTitleTextView.text = item.answer
-        binding.answerCardView.setTint(R.color.neutral_light_gray)
-        binding.correctPointTextView.visibility = View.GONE
+        with(binding){
+            optionTitleTextView.text = item.answer
+            answerCardView.setTint(R.color.neutral_light_gray)
+            correctPointTextView.visibility = View.GONE
 
-        binding.answerCardView.setOnClickListener {
-            if (clickable) {
-                onItemClick(item)
-                quizManager.handleAnswerClick(binding, item)
+            answerCardView.setOnClickListener {
+                if (clickable) {
+                    quizManager.handleAnswerClick(binding, item, position)
+                }
             }
         }
+
     }
 
     private class MyItemDiffCallback : DiffUtil.ItemCallback<QuizQuestionUIModel.Answer>() {
@@ -79,5 +71,9 @@ class QuizQuestionsAdapter(private val onItemClick: (QuizQuestionUIModel.Answer)
             // Compare based on the actual content of the items
             return oldItem == newItem
         }
+    }
+
+    fun setRecyclerView(recyclerView: RecyclerView) {
+        this.recyclerView = recyclerView
     }
 }

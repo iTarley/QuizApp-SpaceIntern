@@ -11,7 +11,10 @@ class QuestionDomainUIMapper:
 
         val answersUI = model.data.map { answer ->
             QuizQuestionUIModel.Answer(
-                answer = answer.answer
+                answer = answer.answer,
+                correctAnswer = model.correctAnswer,
+                lastQuestion = answer.lastQuestion,
+                point = model.point
             )
         }
 
@@ -19,6 +22,7 @@ class QuestionDomainUIMapper:
             subjectId = model.subjectId,
             questionTitle = model.questionTitle,
             data = answersUI,
+            point = model.point,
             correctAnswer = model.correctAnswer,
             questionIndex = model.questionIndex
         )

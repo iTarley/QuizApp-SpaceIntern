@@ -11,13 +11,15 @@ class QuizQuestionEntityDomainMapper :
 
         val answersUI = model.data.map { answer ->
             QuizQuestionDomainModel.Answer(
-                answer = answer.answer
+                answer = answer.answer,
+                lastQuestion = answer.lastQuestion
             )
         }
 
         return QuizQuestionDomainModel(
             questionTitle = model.questionTitle,
             data = answersUI,
+            point = model.point,
             correctAnswer = model.correctAnswer,
             questionIndex = model.questionIndex,
             subjectId = model.subjectId

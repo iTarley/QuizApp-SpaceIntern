@@ -9,7 +9,11 @@ class QuizQuestionEntityDtoMapper : ModelMapper<QuizDtoItem, List<QuizQuestionEn
         return model.questions.map { questionDto ->
             QuizQuestionEntity(
                 questionTitle = questionDto.questionTitle,
-                data = questionDto.answers.map { QuizQuestionEntity.Answer(it) },
+                data = questionDto.answers.map { QuizQuestionEntity.Answer(
+                    answer = it,
+                    lastQuestion = questionDto.lastQuestion
+                ) },
+                point = questionDto.point,
                 correctAnswer = questionDto.correctAnswer,
                 questionIndex = questionDto.questionIndex,
                 subjectId = model.id
