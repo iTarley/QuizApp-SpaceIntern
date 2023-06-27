@@ -18,7 +18,7 @@ class QuizQuestionsAdapter() :
     BaseListAdapter<QuizQuestionUIModel.Answer, ItemAnswerBinding>(MyItemDiffCallback()) {
 
     var quizId = 0
-    var points = 0
+    var points = 0.0
     var lastQuestion = false
     var clickable = true
     private var recyclerView: RecyclerView? = null

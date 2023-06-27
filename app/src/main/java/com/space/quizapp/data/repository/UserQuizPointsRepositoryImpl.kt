@@ -7,7 +7,7 @@ import com.space.quizapp.domain.repository.UserQuizPointsRepository
 class UserQuizPointsRepositoryImpl(private val userQuizPointsDao: UserQuizPointsDao) :
     UserQuizPointsRepository {
 
-    override suspend fun insertUserQuizPoints(userId: String, subjectId: Int, quizPoints: Int) {
+    override suspend fun insertUserQuizPoints(userId: String, subjectId: Int, quizPoints: Double) {
         val existingUserQuizPoints = userQuizPointsDao.getUserQuizPoints(userId, subjectId)
 
         if (existingUserQuizPoints == null) {

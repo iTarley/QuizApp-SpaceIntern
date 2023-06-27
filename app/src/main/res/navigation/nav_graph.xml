@@ -69,5 +69,8 @@
             android:name="quizTitle"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="quizCount"
+            app:argType="integer" />
     </fragment>
 </navigation>

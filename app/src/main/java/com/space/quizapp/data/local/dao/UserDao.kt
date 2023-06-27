@@ -13,6 +13,6 @@ interface UserDao {
     @Insert
     suspend fun saveUser(username: UserEntity)
 
-    @Query("SELECT SUM(quizPoints) FROM user_quiz_points WHERE userId = :userId")
+    @Query("SELECT (SUM(quizPoints) / (SELECT SUM(questionsCount) FROM subjects)) * 4.0 AS gpa FROM user_quiz_points WHERE userId = :userId")
     fun getQuizPointsForSubject(userId: String): Double
 }

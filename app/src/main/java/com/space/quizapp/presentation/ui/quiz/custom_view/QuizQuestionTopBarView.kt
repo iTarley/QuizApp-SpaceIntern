@@ -23,19 +23,8 @@ class QuizQuestionTopBarView @JvmOverloads constructor(
     }
 
     override fun startDrawing(canvas: Canvas, width: Float, height: Float) {
-        rectanglePath.apply {
-            moveTo(0f, 0f)
-            lineTo(width, 0f)
-            arcTo(
-                RectF(width / 2, 0f,width, height),
-                0f, 90f
-            ) // Add an arc to the path as a new contour.
-            arcTo(
-                RectF(0f, 0f, width / 2, height),
-                90f, 90f
-            ) // Add an arc to the path as a new contour.
-            close()
-        }
-        canvas.drawPath(rectanglePath, paint)
+
+
+        canvas.drawRoundRect(RectF(0f, 0f, width, height), 90f, 90f, paint)
     }
 }

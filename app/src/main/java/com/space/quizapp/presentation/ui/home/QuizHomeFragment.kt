@@ -1,5 +1,6 @@
 package com.space.quizapp.presentation.ui.home
 
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizHomeBinding
@@ -20,12 +21,13 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     private val binding by viewBinding(FragmentQuizHomeBinding::bind)
 
     private val adapter by lazy {
-        QuizListAdapter{
+        QuizListAdapter {
             viewModel.setNavigation(
                 QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizFragment(
                     it.quizTitle,
-                    it.id
-                )
+                    it.questionsCount,
+                    it.id,
+                    )
             )
         }
     }
@@ -57,7 +59,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
          */
         observe(viewModel.userPoints) { userPoints ->
             val gpaScoreText = getString(R.string.gpa_score)
-            val pointsText = userPoints.toString()
+            val pointsText = String.format(getString(R.string.gpa_format), userPoints)
 
             binding.gpaTextView.setColoredTextWithPrefix(
                 gpaScoreText,
@@ -68,9 +70,13 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun setNavigation() {
-        with(binding){
+        with(binding) {
             blueGpaVectorView.setOnClickListener {
-                viewModel.setNavigation(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment(currentUser!!))
+                viewModel.setNavigation(
+                    QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment(
+                        currentUser!!
+                    )
+                )
             }
             logOutButton.setOnClickListener {
                 showLogOutDialog()
@@ -79,11 +85,14 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun showLogOutDialog() {
-        showDialog(R.layout.dialog_listener,getString(R.string.leaving_question), onPositiveButtonClick = {
-            lifecycleScope {
-                viewModel.clearUserSession()
-            }
-        })
+        showDialog(
+            R.layout.dialog_listener,
+            getString(R.string.leaving_question),
+            onPositiveButtonClick = {
+                lifecycleScope {
+                    viewModel.clearUserSession()
+                }
+            })
     }
 
     private fun setObserver() {

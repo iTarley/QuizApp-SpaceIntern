@@ -1,5 +1,6 @@
 package com.space.quizapp.presentation.ui.quiz.adapter.manager
 
+import android.util.Log
 import android.view.View
 import androidx.viewbinding.ViewBinding
 import com.space.quizapp.R
@@ -15,9 +16,8 @@ class QuizManager(private val adapter: QuizQuestionsAdapter) {
         val lastQuestion = item.lastQuestion
         val plusPoint = item.point
         val correctBinding = adapter.getItemBinding(correctAnswer)
-
         binding.root.setTint(R.color.neutral_light_gray)
-
+        adapter.clickable =false
         if (item.correctAnswer == position) {
             handleCorrectAnswer(binding,lastQuestion,plusPoint)
         } else {
@@ -42,7 +42,6 @@ class QuizManager(private val adapter: QuizQuestionsAdapter) {
         binding.correctPointTextView.visibility = View.GONE
 
         correctBinding?.root?.setTint(R.color.success_green)
-
         if (lastQuestion) {
             adapter.lastQuestion = true
         }else{

@@ -9,6 +9,7 @@ class QuizDtoEntityMapper : ModelMapper<QuizDtoItem, QuizSubjectEntity> {
         return QuizSubjectEntity(
             id = model.id,
             quizTitle = model.quizTitle,
+            questionsCount = model.questionsCount,
             quizDescription = model.quizDescription,
             image = model.image,
         )
