@@ -113,7 +113,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             progressTextView.text =
                 getString(R.string.progress_text, viewModel.quizId.inc(), questionsCount)
             currentPointTextView.text =
-                String.format(getString(R.string.current_point), viewModel.points)
+                String.format(getString(R.string.current_point), viewModel.points.toInt())
             progressBar.max = questionsCount
             progressBar.progress = viewModel.quizId.inc()
             questionTextView.text = answer[viewModel.quizId].questionTitle
@@ -129,7 +129,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             progressTextView.text =
                 getString(R.string.progress_text, viewModel.quizId.inc(), questionsCount)
             currentPointTextView.text =
-                String.format(getString(R.string.current_point), viewModel.points)
+                String.format(getString(R.string.current_point), viewModel.points.toInt())
             progressBar.progress = viewModel.quizId.inc()
         }
         if (viewModel.quizId.inc() == questionsCount) {
