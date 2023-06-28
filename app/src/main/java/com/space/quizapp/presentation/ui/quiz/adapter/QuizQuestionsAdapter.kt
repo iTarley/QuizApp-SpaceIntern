@@ -12,6 +12,7 @@ import com.space.quizapp.presentation.model.QuizQuestionUIModel
 import com.space.quizapp.presentation.ui.base.adapter.BaseListAdapter
 import com.space.quizapp.presentation.ui.base.adapter.BaseViewHolder
 import com.space.quizapp.presentation.ui.quiz.adapter.manager.QuizManager
+import com.space.quizapp.utils.extensions.setTextColorCompat
 import com.space.quizapp.utils.extensions.setTint
 
 class QuizQuestionsAdapter() :
@@ -25,10 +26,10 @@ class QuizQuestionsAdapter() :
     private var quizManager: QuizManager = QuizManager(this)
 
 
-    fun getItemBinding(position: Int): ViewBinding? {
+    fun getItemBinding(position: Int): ItemAnswerBinding? {
         val viewHolder = recyclerView!!.findViewHolderForAdapterPosition(position)
         return viewHolder?.let {
-            (it as? BaseViewHolder<*>)?.binding
+            (it as? BaseViewHolder<ItemAnswerBinding>)?.binding
         }
     }
 
@@ -45,7 +46,7 @@ class QuizQuestionsAdapter() :
             optionTitleTextView.text = item.answer
             answerCardView.setTint(R.color.neutral_light_gray)
             correctPointTextView.visibility = View.GONE
-
+            optionTitleTextView.setTextColorCompat(R.color.neutral_dark_grey)
             answerCardView.setOnClickListener {
                 if (clickable) {
                     quizManager.handleAnswerClick(binding, item, position)

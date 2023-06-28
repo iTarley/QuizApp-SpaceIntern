@@ -5,6 +5,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 
 /**
  * Set colored text with prefix
@@ -21,4 +22,7 @@ fun TextView.setColoredTextWithPrefix(prefix: String, text: String, @ColorInt co
     )
 
     this.text = spannableString
+}
+fun TextView.setTextColorCompat(@ColorRes colorRes: Int) {
+    this.setTextColor(context.getColor(colorRes))
 }

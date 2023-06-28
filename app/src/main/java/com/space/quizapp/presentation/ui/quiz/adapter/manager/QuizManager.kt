@@ -1,12 +1,12 @@
 package com.space.quizapp.presentation.ui.quiz.adapter.manager
 
-import android.util.Log
 import android.view.View
 import androidx.viewbinding.ViewBinding
 import com.space.quizapp.R
 import com.space.quizapp.databinding.ItemAnswerBinding
 import com.space.quizapp.presentation.model.QuizQuestionUIModel
 import com.space.quizapp.presentation.ui.quiz.adapter.QuizQuestionsAdapter
+import com.space.quizapp.utils.extensions.setTextColorCompat
 import com.space.quizapp.utils.extensions.setTint
 
 class QuizManager(private val adapter: QuizQuestionsAdapter) {
@@ -25,11 +25,18 @@ class QuizManager(private val adapter: QuizQuestionsAdapter) {
         }
     }
 
-
     private fun handleCorrectAnswer(binding: ItemAnswerBinding,lastQuestion:Boolean,plusPoint:Int) {
         adapter.points += plusPoint
-        binding.answerCardView.setTint(R.color.success_green)
-        binding.correctPointTextView.visibility = View.VISIBLE
+        with(binding){
+            answerCardView.setTint(R.color.success_green)
+            correctPointTextView.apply {
+                visibility = View.VISIBLE
+                text = "+$plusPoint"
+            }
+            optionTitleTextView.setTextColorCompat(R.color.neutral_white)
+
+        }
+
         if (lastQuestion) {
             adapter.lastQuestion = true
         }else{
@@ -37,11 +44,15 @@ class QuizManager(private val adapter: QuizQuestionsAdapter) {
         }
     }
 
-    private fun handleWrongAnswer(binding: ItemAnswerBinding, correctBinding: ViewBinding?,lastQuestion:Boolean) {
-        binding.answerCardView.setTint(R.color.wrong_red)
-        binding.correctPointTextView.visibility = View.GONE
-
+    private fun handleWrongAnswer(binding: ItemAnswerBinding, correctBinding: ItemAnswerBinding?,lastQuestion:Boolean) {
+        with(binding){
+            answerCardView.setTint(R.color.wrong_red)
+            correctPointTextView.visibility = View.GONE
+            optionTitleTextView.setTextColorCompat(R.color.neutral_white)
+        }
         correctBinding?.root?.setTint(R.color.success_green)
+        correctBinding?.optionTitleTextView?.setTextColorCompat(R.color.neutral_white)
+
         if (lastQuestion) {
             adapter.lastQuestion = true
         }else{
