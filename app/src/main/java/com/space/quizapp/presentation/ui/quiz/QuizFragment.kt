@@ -1,6 +1,8 @@
 package com.space.quizapp.presentation.ui.quiz
 
 
+import android.graphics.Point
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
@@ -19,8 +21,17 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
 
     private val binding by viewBinding(FragmentQuizBinding::bind)
     private val args: QuizFragmentArgs by navArgs()
+
     private val adapter by lazy {
-        QuizQuestionsAdapter()
+        QuizQuestionsAdapter { isCorrectAnswer, points,isLastQuestion ->
+            viewModel.updatePoints(isCorrectAnswer, points)
+            if (isLastQuestion){
+                viewModel.markAsLastQuestion()
+            }else{
+                viewModel.incrementQuizId()
+            }
+
+        }
     }
 
     override fun onBind() {
@@ -37,11 +48,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
     private fun setBackListener() {
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (adapter.points == 0.0) {
-                    popBackStack(requireView())
-                } else {
-                    showDialog()
-                }
+                checkPoints()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -68,37 +75,39 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
          * Observe the quiz data, set the adapter and submit the list
          */
         observe(viewModel.quizData) { answer ->
-            adapter.submitList(answer[adapter.quizId].data)
-            val currentQuestion = answer[adapter.quizId]
+            adapter.submitList(answer[viewModel.quizId].data)
+            val currentQuestion = answer[viewModel.quizId]
             /**
              * Set the progress bar and text
              */
             with(binding) {
                 progressTextView.text =
-                    getString(R.string.progress_text, adapter.quizId.inc(), questionsCount)
+                    getString(R.string.progress_text, viewModel.quizId.inc(), questionsCount)
                 currentPointTextView.text =
-                    String.format(getString(R.string.current_point), adapter.points)
+                    String.format(getString(R.string.current_point), viewModel.points)
                 progressBar.max = questionsCount
-                progressBar.progress = adapter.quizId.inc()
+                progressBar.progress = viewModel.quizId.inc()
                 questionTextView.text = currentQuestion.questionTitle
             }
             /**
              * Set new question and answers
              */
             binding.startQuizButton.setOnClickListener {
-                adapter.submitList(answer[adapter.quizId].data)
+                Log.d("luka", "${viewModel.quizId}")
+
+                adapter.submitList(answer[viewModel.quizId].data)
                 adapter.clickable = true
                 binding.progressTextView.text =
-                    getString(R.string.progress_text, adapter.quizId.inc(), questionsCount)
+                    getString(R.string.progress_text, viewModel.quizId.inc(), questionsCount)
                 binding.currentPointTextView.text =
-                    String.format(getString(R.string.current_point), adapter.points)
-                binding.progressBar.progress = adapter.quizId.inc()
-                if (adapter.quizId.inc() == questionsCount) {
+                    String.format(getString(R.string.current_point), viewModel.points)
+                binding.progressBar.progress = viewModel.quizId.inc()
+                if (viewModel.quizId.inc() == questionsCount) {
                     binding.startQuizButton.text = getString(R.string.finish)
                 }
-                if (adapter.lastQuestion) {
-                    saveGpa(adapter.quizId, adapter.points)
-                    val message = String.format(getString(R.string.you_have), adapter.points)
+                if (viewModel.lastQuestion) {
+                    saveGpa(viewModel.quizId, viewModel.points)
+                    val message = String.format(getString(R.string.you_have), viewModel.points)
                     showDialog(
                         R.layout.dialog_alert,
                         message,
@@ -117,9 +126,9 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             R.layout.dialog_listener,
             getString(R.string.leaving_question),
             onPositiveButtonClick = {
-                saveGpa(index = adapter.quizId, quizPoints = adapter.points)
+                saveGpa(index = viewModel.quizId, quizPoints = viewModel.points)
                 val message =
-                    String.format(getString(R.string.you_have), adapter.points)
+                    String.format(getString(R.string.you_have), viewModel.points)
                 showDialog(
                     R.layout.dialog_alert,
                     message,
@@ -134,11 +143,15 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
 
     private fun setLogOutButton() {
         binding.exitImageButton.setOnClickListener {
-            if (adapter.points == 0.0) {
-                popBackStack(requireView())
-            } else {
-                showDialog()
-            }
+            checkPoints()
+        }
+    }
+
+    private fun checkPoints(){
+        if (viewModel.points == 0.0) {
+            popBackStack(requireView())
+        } else {
+            showDialog()
         }
     }
 }
