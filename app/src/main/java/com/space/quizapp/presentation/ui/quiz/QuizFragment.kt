@@ -8,7 +8,10 @@ import com.space.quizapp.databinding.FragmentQuizBinding
 import com.space.quizapp.presentation.model.QuizQuestionUIModel
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.quiz.adapter.QuizQuestionsAdapter
-import com.space.quizapp.utils.extensions.*
+import com.space.quizapp.utils.extensions.observe
+import com.space.quizapp.utils.extensions.popBackStack
+import com.space.quizapp.utils.extensions.showDialog
+import com.space.quizapp.utils.extensions.viewBinding
 import kotlin.reflect.KClass
 
 class QuizFragment : QuizBaseFragment<QuizViewModel>() {
@@ -24,12 +27,13 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
     private val adapter by lazy {
         QuizQuestionsAdapter { isCorrectAnswer, points, isLastQuestion ->
             viewModel.updatePoints(isCorrectAnswer, points)
+            binding.currentPointTextView.text =
+                String.format(getString(R.string.current_point), viewModel.points)
             if (isLastQuestion) {
                 viewModel.markAsLastQuestion()
             } else {
                 viewModel.incrementQuizId()
             }
-
         }
     }
 
@@ -89,7 +93,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             R.layout.dialog_listener,
             getString(R.string.leaving_question),
             onPositiveButtonClick = {
-                saveGpa(index = viewModel.quizId, quizPoints = viewModel.points)
+                saveGpa(index = viewModel.quizId, quizPoints = viewModel.points.toDouble())
                 val message =
                     String.format(getString(R.string.you_have), viewModel.points)
                 showDialog(
@@ -128,15 +132,14 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             questionTextView.text = answer[viewModel.quizId].questionTitle
             progressTextView.text =
                 getString(R.string.progress_text, viewModel.quizId.inc(), questionsCount)
-            currentPointTextView.text =
-                String.format(getString(R.string.current_point), viewModel.points.toInt())
+
             progressBar.progress = viewModel.quizId.inc()
         }
         if (viewModel.quizId.inc() == questionsCount) {
             binding.startQuizButton.text = getString(R.string.finish)
         }
         if (viewModel.lastQuestion) {
-            saveGpa(viewModel.quizId, viewModel.points)
+            saveGpa(viewModel.quizId, viewModel.points.toDouble())
             val message = String.format(getString(R.string.you_have), viewModel.points)
             showDialog(
                 R.layout.dialog_alert,
@@ -156,7 +159,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
     }
 
     private fun checkPoints() {
-        if (viewModel.points == 0.0) {
+        if (viewModel.points == 0) {
             popBackStack(requireView())
         } else {
             showDialog()

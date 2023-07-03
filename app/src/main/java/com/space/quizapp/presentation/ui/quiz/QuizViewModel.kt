@@ -1,6 +1,5 @@
 package com.space.quizapp.presentation.ui.quiz
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.points.insert.InsertQuizPointsUseCase
@@ -20,7 +19,7 @@ class QuizViewModel(
     private val _quizData = MutableLiveData<List<QuizQuestionUIModel>>()
     val quizData get() = _quizData
 
-    var points = 0.0
+    var points = 0
     var quizId = 0
     var lastQuestion = false
 
@@ -41,7 +40,7 @@ class QuizViewModel(
 
     fun updatePoints(isCorrectAnswer:Boolean,points:Int){
         if(isCorrectAnswer){
-            this.points += points.toDouble()
+            this.points += points
         }
     }
 
