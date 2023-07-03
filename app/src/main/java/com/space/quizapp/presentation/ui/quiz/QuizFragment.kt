@@ -57,7 +57,6 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
-
     private fun saveGpa(index: Int, quizPoints: Double) {
         observe(viewModel.quizData) {
             viewModel.saveGpa(it[index].subjectId, quizPoints)
@@ -79,9 +78,8 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
          */
         observe(viewModel.quizData) { answer ->
             setFirstQuestion(answer, questionsCount)
-            /**
-             * Set new question and answers
-             */
+
+            //Set new question and answers
             binding.startQuizButton.setOnClickListener {
                 setNextQuestion(answer, questionsCount)
             }
@@ -93,17 +91,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             R.layout.dialog_listener,
             getString(R.string.leaving_question),
             onPositiveButtonClick = {
-                saveGpa(index = viewModel.quizId, quizPoints = viewModel.points.toDouble())
-                val message =
-                    String.format(getString(R.string.you_have), viewModel.points)
-                showDialog(
-                    R.layout.dialog_alert,
-                    message,
-                    cancelable = false,
-                    onPositiveButtonClick = {
-                        popBackStack(requireView())
-                    }
-                )
+                showAlertDialog(R.layout.dialog_alert)
             }
         )
     }
@@ -117,7 +105,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             progressTextView.text =
                 getString(R.string.progress_text, viewModel.quizId.inc(), questionsCount)
             currentPointTextView.text =
-                String.format(getString(R.string.current_point), viewModel.points.toInt())
+                String.format(getString(R.string.current_point), viewModel.points)
             progressBar.max = questionsCount
             progressBar.progress = viewModel.quizId.inc()
             questionTextView.text = answer[viewModel.quizId].questionTitle
@@ -132,23 +120,17 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
             questionTextView.text = answer[viewModel.quizId].questionTitle
             progressTextView.text =
                 getString(R.string.progress_text, viewModel.quizId.inc(), questionsCount)
-
             progressBar.progress = viewModel.quizId.inc()
         }
         if (viewModel.quizId.inc() == questionsCount) {
             binding.startQuizButton.text = getString(R.string.finish)
         }
         if (viewModel.lastQuestion) {
-            saveGpa(viewModel.quizId, viewModel.points.toDouble())
-            val message = String.format(getString(R.string.you_have), viewModel.points)
-            showDialog(
-                R.layout.dialog_alert,
-                message,
-                cancelable = false,
-                onPositiveButtonClick = {
-                    popBackStack(requireView())
-                }
-            )
+            if (viewModel.points == 0){
+                showAlertDialog(R.layout.dialog_alert_sad)
+            }else{
+                showAlertDialog(R.layout.dialog_alert)
+            }
         }
     }
 
@@ -164,5 +146,18 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
         } else {
             showDialog()
         }
+    }
+
+    private fun showAlertDialog(layout:Int){
+        saveGpa(viewModel.quizId, viewModel.points.toDouble())
+        val message = String.format(getString(R.string.you_have), viewModel.points)
+        showDialog(
+            layout,
+            message,
+            cancelable = false,
+            onPositiveButtonClick = {
+                popBackStack(requireView())
+            }
+        )
     }
 }

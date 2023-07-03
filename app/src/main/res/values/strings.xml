@@ -30,5 +30,7 @@
     <string name="progress_text">%1$d/%2$d</string>
     <string name="finish">დასრულება</string>
     <string name="gpa_format">%.1f</string>
+    <string name="cry_emoji">😭</string>
+    <string name="unfortunately">სამწუხაროდ</string>
 
 </resources>
