@@ -1,11 +1,8 @@
 package com.space.quizapp.presentation.ui.home
 
 
-import android.graphics.Color
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizHomeBinding
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
@@ -23,6 +20,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
 
     override fun onBindViewModel() {
         navigate()
+        showGpaScore()
     }
 
     private fun showGpaScore() {
@@ -59,7 +57,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     private fun navigate() {
         with(binding) {
             blueGpaVectorView.setOnClickListener {
-                navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
+                navigateSafe(findNavController(),QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
             }
             logOutButton.setOnClickListener {
                 showLogOutDialog()
@@ -70,9 +68,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     private fun showLogOutDialog() {
         showDialog(R.layout.dialog_listener, onPositiveButtonClick = {
             lifecycleScope {
-                viewModel.clearUserSession {
-                    navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment())
-                }
+                viewModel.clearUserSession(findNavController(),QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment())
             }
         })
     }

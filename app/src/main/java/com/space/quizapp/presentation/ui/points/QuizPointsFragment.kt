@@ -1,5 +1,6 @@
 package com.space.quizapp.presentation.ui.points
 
+import androidx.navigation.fragment.findNavController
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizPointBinding
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
@@ -34,9 +35,7 @@ class QuizPointsFragment : QuizBaseFragment<QuizPointsViewModel>() {
     private fun showLogOutDialog() {
         showDialog(R.layout.dialog_listener, onPositiveButtonClick = {
             lifecycleScope {
-                viewModel.clearUserSession {
-                    navigateSafe(QuizPointsFragmentDirections.actionQuizPointsFragmentToQuizLogInFragment())
-                }
+                viewModel.clearUserSession(findNavController())
             }
         })
     }

@@ -1,10 +1,10 @@
 package com.space.quizapp.domain.usecase.points
 
-import com.space.quizapp.domain.repository.UserRepository
+import com.space.quizapp.domain.repository.UserAuthRepository
 
-class GetUserPointsUseCaseImpl(private val userRepository: UserRepository) : GetUserPointsUseCase {
+class GetUserPointsUseCaseImpl(private val userAuthRepository: UserAuthRepository) : GetUserPointsUseCase {
 
     override suspend fun getUserPoints(username: String): Double? {
-        return userRepository.getUserPoints(username)
+        return userAuthRepository.getUserPoints(username)
     }
 }
