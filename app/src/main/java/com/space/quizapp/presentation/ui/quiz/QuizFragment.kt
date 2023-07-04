@@ -7,7 +7,7 @@ import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
 import com.space.quizapp.utils.extensions.viewBinding
 import kotlin.reflect.KClass
 
-class QuizFragmentQuiz : QuizBaseFragment<QuizViewModel>() {
+class QuizFragment : QuizBaseFragment<QuizViewModel>() {
 
     override val layout: Int
         get() = R.layout.fragment_quiz
@@ -16,9 +16,8 @@ class QuizFragmentQuiz : QuizBaseFragment<QuizViewModel>() {
 
     private val binding by viewBinding(FragmentQuizBinding::bind)
 
-    private lateinit var viewModel: QuizViewModel
 
-    override fun onBindViewModel(viewModel: QuizViewModel) {
+    override fun onBindViewModel() {
 
     }
 

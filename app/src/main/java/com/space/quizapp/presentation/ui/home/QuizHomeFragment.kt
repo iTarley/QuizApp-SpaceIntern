@@ -9,7 +9,7 @@ import com.space.quizapp.utils.extensions.showDialog
 import com.space.quizapp.utils.extensions.viewBinding
 import kotlin.reflect.KClass
 
-class QuizHomeFragmentQuiz : QuizBaseFragment<QuizHomeViewModel>() {
+class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
 
     override val layout: Int
         get() = R.layout.fragment_quiz_home
@@ -18,17 +18,21 @@ class QuizHomeFragmentQuiz : QuizBaseFragment<QuizHomeViewModel>() {
 
     private val binding by viewBinding(FragmentQuizHomeBinding::bind)
 
-    private lateinit var viewModel: QuizHomeViewModel
-
-    override fun onBindViewModel(viewModel: QuizHomeViewModel) {
+    override fun onBindViewModel() {
         navigate()
     }
 
+    private fun showGpaScore(){
+        //TODO - GET CURRENT AUTH USERNAME AND PASS IT TO THE FUNCTION (DATASTORE STATE HANDLER)
+        viewModel.loadUserPoints("lukaadmin")
+        viewModel.userPoints.observe(this){
+            binding.gpaTextView.text = "GPA - ${it.toString()}"
+        }
+    }
     private fun navigate() {
-
-        with(binding){
+        with(binding) {
             blueGpaVectorView.setOnClickListener {
-                navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointFragment())
+                navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
             }
             logOutButton.setOnClickListener {
                 showLogOutDialog()
@@ -40,7 +44,7 @@ class QuizHomeFragmentQuiz : QuizBaseFragment<QuizHomeViewModel>() {
         showDialog(
             R.layout.dialog_listener,
             onPositiveButtonClick = {
-                navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToLoginFragment())
+                navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment())
             }
         )
     }

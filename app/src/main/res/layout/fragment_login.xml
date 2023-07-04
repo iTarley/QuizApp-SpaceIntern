@@ -5,7 +5,7 @@
     android:id="@+id/startFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.log_in.LogInFragmentQuiz">
+    tools:context=".presentation.ui.log_in.QuizLogInFragment">
 
     <com.space.quizapp.presentation.ui.log_in.custom_view.QuizLogInVectorView
         android:id="@+id/startVectorView"

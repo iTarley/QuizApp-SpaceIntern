@@ -1,6 +1,9 @@
 package com.space.quizapp
 
 import android.app.Application
+import com.space.quizapp.di.repositoryModule
+import com.space.quizapp.di.useCaseModule
+import com.space.quizapp.di.userDataBaseModule
 import com.space.quizapp.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -13,7 +16,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(viewModelModule)
+            modules(viewModelModule,userDataBaseModule,repositoryModule,useCaseModule)
         }
     }
 }
