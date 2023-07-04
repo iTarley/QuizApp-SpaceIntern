@@ -7,7 +7,7 @@ import com.space.quizapp.domain.repository.UserRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<UserRepository> { UserRepositoryImpl(get(), UserDomainEntityMapper(),
+    single<UserRepository> { UserRepositoryImpl(get(),get(), UserDomainEntityMapper(),
         UserEntityDomainMapper()
     ) }
 }

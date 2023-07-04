@@ -1,12 +1,15 @@
 package com.space.quizapp.presentation.ui.home
 
 
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import androidx.core.content.ContextCompat
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizHomeBinding
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
-import com.space.quizapp.utils.extensions.navigateSafe
-import com.space.quizapp.utils.extensions.showDialog
-import com.space.quizapp.utils.extensions.viewBinding
+import com.space.quizapp.utils.extensions.*
 import kotlin.reflect.KClass
 
 class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
@@ -22,13 +25,37 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
         navigate()
     }
 
-    private fun showGpaScore(){
-        //TODO - GET CURRENT AUTH USERNAME AND PASS IT TO THE FUNCTION (DATASTORE STATE HANDLER)
-        viewModel.loadUserPoints("lukaadmin")
-        viewModel.userPoints.observe(this){
-            binding.gpaTextView.text = "GPA - ${it.toString()}"
+    private fun showGpaScore() {
+        viewModel.updateSession()
+
+        /**
+         * Observe the session and load the user points
+         */
+        viewModel.session.observe(viewLifecycleOwner) { session ->
+            session?.let {
+                binding.helloUserTextView.text = buildString {
+                    append(getString(R.string.hello_user))
+                    append(it)
+                }
+                viewModel.loadUserPoints(it)
+            }
+        }
+
+        /**
+         * Observe the user points and display it
+         */
+        viewModel.userPoints.observe(viewLifecycleOwner) { userPoints ->
+            val gpaScoreText = getString(R.string.gpa_score)
+            val pointsText = userPoints.toString()
+
+            binding.gpaTextView.setColoredTextWithPrefix(
+                gpaScoreText,
+                pointsText,
+                ContextCompat.getColor(requireContext(), R.color.yellow_primary)
+            )
         }
     }
+
     private fun navigate() {
         with(binding) {
             blueGpaVectorView.setOnClickListener {
@@ -41,11 +68,12 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun showLogOutDialog() {
-        showDialog(
-            R.layout.dialog_listener,
-            onPositiveButtonClick = {
-                navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment())
+        showDialog(R.layout.dialog_listener, onPositiveButtonClick = {
+            lifecycleScope {
+                viewModel.clearUserSession {
+                    navigateSafe(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizLogInFragment())
+                }
             }
-        )
+        })
     }
 }
