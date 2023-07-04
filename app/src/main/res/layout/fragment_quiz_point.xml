@@ -12,7 +12,7 @@
         android:layout_height="@dimen/dimen_32dp"
         android:layout_marginTop="@dimen/dimen_8dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/back_ic"
+        android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16dp"
-        android:drawableEnd="@drawable/star_ic"
+        android:drawableEnd="@drawable/ic_star"
         android:drawablePadding="@dimen/dimen_4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/navBackImageButton"
@@ -65,7 +65,7 @@
         android:layout_marginBottom="@dimen/dimen_10dp"
         android:backgroundTint="@color/yellow_primary"
         android:contentDescription="@string/exit_logo"
-        android:src="@drawable/logout_ic"
+        android:src="@drawable/ic_logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/neutral_white" />

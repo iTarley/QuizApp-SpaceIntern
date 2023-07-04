@@ -9,8 +9,11 @@
     <com.space.quizapp.presentation.ui.quiz.custom_view.QuizQuestionTopBarView
         android:id="@+id/questionTopBarVectorView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_228dp"
+        android:layout_height="@dimen/dimen_0dp"
+        android:layout_marginBottom="@dimen/dimen_25dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +32,7 @@
         android:id="@+id/questionTextView"
         style="@style/casual_text_style_bold"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dimen_110dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_32dp"
         android:paddingHorizontal="@dimen/dimen_45dp"
         android:textAlignment="center"
@@ -37,8 +40,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/questionTopBarVectorView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navTitleTextView"
-        tools:text="@tools:sample/lorem/random" />
+        app:layout_constraintTop_toBottomOf="@+id/navTitleTextView"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/exitImageButton"
@@ -47,7 +49,7 @@
         android:layout_marginTop="@dimen/dimen_9dp"
         android:layout_marginEnd="@dimen/dimen_8dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/exit_ic"
+        android:src="@drawable/ic_exit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,10 +58,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16dp"
-        android:layout_marginTop="@dimen/dimen_22dp"
+        android:layout_marginBottom="42dp"
+        app:layout_constraintBottom_toTopOf="@+id/startQuizButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionTopBarVectorView"
         tools:itemCount="4"
         tools:listitem="@layout/item_answer" />
 
@@ -70,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_42dp"
-        android:background="@drawable/shape"
+        android:background="@drawable/shape_round_button"
         android:backgroundTint="@color/yellow_primary"
         android:ems="25"
         android:text="@string/next"

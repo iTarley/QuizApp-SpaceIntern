@@ -21,7 +21,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/start_screen_il" />
+            tools:src="@drawable/il_login_screen" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/subjectTextView"
@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/neutral_white"
-            tools:drawableEnd="@drawable/next_ic"
+            tools:drawableEnd="@drawable/ic_next"
             android:contentDescription="@string/open_quiz"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
