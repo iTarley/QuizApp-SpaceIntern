@@ -20,7 +20,7 @@
             android:id="@+id/optionTitleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/casual_text_style"
+            style="@style/casual_text_style_bold"
             android:layout_marginEnd="@dimen/dimen_20dp"
             android:layout_weight="1"
             android:textColor="@color/neutral_dark_grey"

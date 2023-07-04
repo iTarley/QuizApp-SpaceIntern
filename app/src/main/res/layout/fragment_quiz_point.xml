@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.points.ShowPointFragment">
+    tools:context=".presentation.ui.points.QuizPointsFragmentQuiz">
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/navBackImageButton"
         android:layout_width="@dimen/dimen_32dp"
         android:layout_height="@dimen/dimen_32dp"
+        android:layout_marginTop="@dimen/dimen_8dp"
         android:background="@android:color/transparent"
         android:src="@drawable/back_ic"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,10 +18,10 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/navTitleTextView"
-        style="@style/casual_text_style"
+        style="@style/casual_text_style_bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_4dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
         android:drawableEnd="@drawable/star_ic"
         android:drawablePadding="@dimen/dimen_4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/dimen_4dp"
-        app:layout_constraintBottom_toTopOf="@id/view"
+        app:layout_constraintBottom_toTopOf="@id/dividerView"
         app:layout_constraintTop_toBottomOf="@+id/navTitleTextView"
         tools:layout_editor_absoluteX="0dp"
         tools:listitem="@layout/item_subject"
@@ -44,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_80dp"
-        style="@style/casual_text_style"
+        style="@style/casual_text_style_bold"
         android:textStyle="normal"
         android:textSize="@dimen/dimen_18sp"
         android:letterSpacing="0.03"
@@ -70,7 +71,7 @@
         app:tint="@color/neutral_white" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/dividerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_2dp"
         android:layout_marginBottom="@dimen/dimen_6dp"
