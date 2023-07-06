@@ -28,7 +28,7 @@ class QuizViewModel(
         }
     }
 
-    fun saveGpa(subjectId:Int,quizPoints:Int){
+    fun saveGpa(subjectId:Int,quizPoints:Double){
         viewModelScope {
             val userId = getUserSessionUseCase.invoke().getOrNull()
             insertQuizPointsUseCase.invoke(userId = userId!!,subjectId = subjectId,quizPoints = quizPoints)

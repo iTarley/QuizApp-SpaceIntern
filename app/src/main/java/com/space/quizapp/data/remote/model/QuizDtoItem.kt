@@ -5,7 +5,7 @@ data class QuizDtoItem(
     val id: Int = 0,
     val image: String? = "",
     val questions: List<QuestionDto> = emptyList(),
-    val questionsCount: Int? = 0,
+    val questionsCount: Int = 0,
     val quizDescription: String? = "",
     val quizTitle: String? = ""
 ) {

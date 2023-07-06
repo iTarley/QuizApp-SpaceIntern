@@ -9,5 +9,5 @@ data class UserQuizPointsEntity(
     val id:Int = 0,
     val userId: String, // Foreign key referencing the User table's user_id
     val subjectId: Int, // Foreign key referencing the QuizSubjectEntity's id
-    var quizPoints: Int
+    var quizPoints: Double
 )

@@ -10,6 +10,7 @@ class QuizDomainUIMapper(
         QuizUIModel(
             id = model.id,
             image = model.image,
+            questionsCount = model.questionsCount,
             quizDescription = model.quizDescription,
             quizTitle = model.quizTitle
         )

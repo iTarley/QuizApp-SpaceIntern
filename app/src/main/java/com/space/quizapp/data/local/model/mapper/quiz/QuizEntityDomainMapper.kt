@@ -9,6 +9,7 @@ class QuizEntityDomainMapper  : ModelMapper<QuizSubjectEntity, QuizDomainModel> 
         return QuizDomainModel(
             id = model.id,
             quizTitle = model.quizTitle,
+            questionsCount = model.questionsCount,
             quizDescription = model.quizDescription,
             image = model.image,
         )
