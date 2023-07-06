@@ -17,19 +17,13 @@ abstract class BaseListAdapter<T : Any, VB : ViewBinding>(
 
     override fun onBindViewHolder(holder: BaseViewHolder<VB>, position: Int) {
         val item = getItem(position)
-        onBind(holder.binding, item,position, onClickCallback,)
+        onBind(holder.binding, item)
 
-    }
-
-    private var onClickCallback: ((T) -> Unit)? = null
-
-    fun onItemClickListener(onClickCallback: (T) -> Unit) {
-        this.onClickCallback = onClickCallback
     }
 
     protected abstract fun createBinding(parent: ViewGroup): VB
-    protected abstract fun onBind(binding: VB, item: T,position: Int,onClickCallback: ((T) -> Unit)?)
+    protected abstract fun onBind(binding: VB, item: T)
 
 }
 
-class BaseViewHolder<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root)
+class BaseViewHolder<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root){}

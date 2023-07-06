@@ -20,14 +20,20 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     private val binding by viewBinding(FragmentQuizHomeBinding::bind)
 
     private val adapter by lazy {
-        QuizListAdapter()
+        QuizListAdapter{
+            viewModel.setNavigation(
+                QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizFragment(
+                    it.quizTitle,
+                    it.id
+                )
+            )
+        }
     }
 
     override fun onBind() {
         setNavigation()
         showGpaScore()
         setObserver()
-        setOnClickListener()
     }
 
     private fun showGpaScore() {
@@ -86,16 +92,5 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
             adapter.submitList(it)
         }
         viewModel.fetchQuizData()
-    }
-
-    private fun setOnClickListener() {
-        adapter.onItemClickListener {
-            viewModel.setNavigation(
-                QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizFragment(
-                    it.quizTitle,
-                    it.id
-                )
-            )
-        }
     }
 }

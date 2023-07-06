@@ -1,6 +1,5 @@
 package com.space.quizapp.presentation.ui.home.adapter
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import coil.load
@@ -10,7 +9,7 @@ import com.space.quizapp.presentation.model.QuizUIModel
 import com.space.quizapp.presentation.ui.base.adapter.BaseListAdapter
 import com.space.quizapp.utils.extensions.viewBinding
 
-class QuizListAdapter: BaseListAdapter<QuizUIModel, ItemSubjectBinding>(MyItemDiffCallback()) {
+class QuizListAdapter(private val onItemClick: (QuizUIModel) -> Unit): BaseListAdapter<QuizUIModel, ItemSubjectBinding>(MyItemDiffCallback()) {
 
     override fun createBinding(parent: ViewGroup): ItemSubjectBinding {
         return parent.viewBinding(ItemSubjectBinding::inflate)
@@ -18,24 +17,16 @@ class QuizListAdapter: BaseListAdapter<QuizUIModel, ItemSubjectBinding>(MyItemDi
 
     override fun onBind(
         binding: ItemSubjectBinding,
-        item: QuizUIModel,
-        position:Int,
-        onClickCallback: ((QuizUIModel) -> Unit)?,
+        item: QuizUIModel
     ) {
         with(binding){
             subjectTextView.text = item.quizTitle
             descriptionTextView.text = item.quizDescription
             iconSubjectImageView.load(item.image)
             startImageButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_next, 0)
-            setListener(binding.root) {
-                onClickCallback?.invoke(item)
+            root.setOnClickListener {
+                onItemClick(item)
             }
-        }
-    }
-
-    private fun setListener(view: View, onItemClick: () -> Unit) {
-        view.setOnClickListener {
-            onItemClick()
         }
     }
 

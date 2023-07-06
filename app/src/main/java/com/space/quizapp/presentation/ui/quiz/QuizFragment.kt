@@ -2,13 +2,11 @@ package com.space.quizapp.presentation.ui.quiz
 
 
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizBinding
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.quiz.adapter.QuizQuestionsAdapter
-import com.space.quizapp.presentation.ui.quiz.adapter.QuizState
 import com.space.quizapp.utils.extensions.*
 import kotlin.reflect.KClass
 
@@ -22,7 +20,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
     private val binding by viewBinding(FragmentQuizBinding::bind)
     private val args: QuizFragmentArgs by navArgs()
     private val adapter by lazy {
-        QuizQuestionsAdapter()
+        QuizQuestionsAdapter {}
     }
 
     override fun onBind() {
@@ -32,20 +30,22 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
 
     private fun setAdapter() {
         binding.quizRecyclerView.adapter = adapter
+        adapter.setRecyclerView(binding.quizRecyclerView)
     }
 
     private fun setBackListener() {
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (adapter.quizId == 0) {
+                if (adapter.points == 0) {
                     popBackStack(requireView())
                 } else {
                     showDialog(
                         R.layout.dialog_listener,
                         getString(R.string.leaving_question),
                         onPositiveButtonClick = {
-                            saveGpa(index = adapter.quizId, quizPoints = adapter.quizId)
-                            val message = String.format(getString(R.string.you_have), adapter.quizId)
+                            saveGpa(index = adapter.quizId, quizPoints = adapter.points)
+                            val message =
+                                String.format(getString(R.string.you_have), adapter.points)
                             showDialog(
                                 R.layout.dialog_alert,
                                 message,
@@ -83,14 +83,15 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
          * Observe the quiz data, set the adapter and submit the list
          */
         observe(viewModel.quizData) { answer ->
-            adapter.setQuiz(answer)
+            adapter.setQuizList(answer)
             adapter.submitList(answer[adapter.quizId].data)
             binding.questionTextView.text = answer[adapter.quizId].questionTitle
             binding.startQuizButton.setOnClickListener {
                 adapter.submitList(answer[adapter.quizId].data)
-                if (adapter.quizState == QuizState.FINISHED) {
-                    saveGpa(index = adapter.quizId, adapter.quizId.inc())
-                    val message = String.format(getString(R.string.you_have), adapter.quizId.inc())
+                adapter.clickable = true
+                if (adapter.lastQuestion) {
+                    saveGpa(index = adapter.quizId, adapter.points)
+                    val message = String.format(getString(R.string.you_have), adapter.points)
                     showDialog(
                         R.layout.dialog_alert,
                         message,
