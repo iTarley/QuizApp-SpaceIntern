@@ -1,10 +1,8 @@
 package com.space.quizapp.presentation.ui.points
 
-import androidx.navigation.fragment.findNavController
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizPointBinding
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
-import com.space.quizapp.presentation.ui.home.QuizHomeFragmentDirections
 import com.space.quizapp.utils.extensions.*
 import kotlin.reflect.KClass
 
@@ -17,7 +15,7 @@ class QuizPointsFragment : QuizBaseFragment<QuizPointsViewModel>() {
 
     private val binding by viewBinding(FragmentQuizPointBinding::bind)
 
-    override fun onBindViewModel() {
+    override fun onBind() {
         navigate()
     }
 
@@ -35,7 +33,7 @@ class QuizPointsFragment : QuizBaseFragment<QuizPointsViewModel>() {
     private fun showLogOutDialog() {
         showDialog(R.layout.dialog_listener, onPositiveButtonClick = {
             lifecycleScope {
-                viewModel.clearUserSession(findNavController())
+                viewModel.clearUserSession()
             }
         })
     }

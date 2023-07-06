@@ -1,8 +1,8 @@
 package com.space.quizapp.data.repository
 
 import com.space.quizapp.data.local.dao.UserDao
-import com.space.quizapp.data.mapper.UserDomainEntityMapper
-import com.space.quizapp.data.mapper.UserEntityDomainMapper
+import com.space.quizapp.data.local.model.mapper.user.UserDomainEntityMapper
+import com.space.quizapp.data.local.model.mapper.user.UserEntityDomainMapper
 import com.space.quizapp.domain.model.UserDomainModel
 import com.space.quizapp.domain.repository.UserAuthRepository
 

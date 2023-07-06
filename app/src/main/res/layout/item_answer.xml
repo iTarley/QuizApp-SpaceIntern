@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/dimen_6dp"
     app:cardCornerRadius="@dimen/dimen_22dp"
+    android:id="@+id/answerCardView"
     android:backgroundTint="@color/neutral_light_gray"
     app:elevation="0dp">
 

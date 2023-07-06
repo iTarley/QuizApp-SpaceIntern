@@ -15,7 +15,7 @@
         android:paddingVertical="@dimen/dimen_22dp">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iconSubjectTextView"
+            android:id="@+id/iconSubjectImageView"
             android:layout_width="@dimen/dimen_64dp"
             android:layout_height="@dimen/dimen_64dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,8 +32,8 @@
             android:textColor="@color/neutral_dark_grey"
             app:layout_constraintBottom_toTopOf="@id/descriptionTextView"
             app:layout_constraintEnd_toStartOf="@+id/startImageButton"
-            app:layout_constraintStart_toEndOf="@id/iconSubjectTextView"
-            app:layout_constraintTop_toTopOf="@id/iconSubjectTextView"
+            app:layout_constraintStart_toEndOf="@id/iconSubjectImageView"
+            app:layout_constraintTop_toTopOf="@id/iconSubjectImageView"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="@tools:sample/lorem" />
 
@@ -43,16 +43,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_18dp"
-            app:layout_constraintBottom_toBottomOf="@id/iconSubjectTextView"
+            app:layout_constraintBottom_toBottomOf="@id/iconSubjectImageView"
             app:layout_constraintEnd_toStartOf="@+id/startImageButton"
-            app:layout_constraintStart_toEndOf="@id/iconSubjectTextView"
+            app:layout_constraintStart_toEndOf="@id/iconSubjectImageView"
             app:layout_constraintTop_toBottomOf="@id/subjectTextView"
             tools:text="@tools:sample/lorem" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/startImageButton"
             android:layout_width="@dimen/dimen_45dp"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/dimen_0dp"
             android:background="@drawable/shape_circle"
             app:backgroundTint="@color/yellow_primary"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +60,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/neutral_white"
-            tools:drawableEnd="@drawable/ic_next"
             android:contentDescription="@string/open_quiz"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

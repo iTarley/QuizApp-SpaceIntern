@@ -1,11 +1,11 @@
-package com.space.quizapp.presentation.model.mapper
+package com.space.quizapp.data.local.model.mapper.user
 
+import com.space.quizapp.data.local.model.entity.UserEntity
 import com.space.quizapp.domain.model.UserDomainModel
-import com.space.quizapp.presentation.model.UserUIModel
 import com.space.quizapp.utils.mapper.ModelMapper
 
-class UserUIDomainMapper : ModelMapper<UserUIModel, UserDomainModel> {
-    override operator fun invoke(model: UserUIModel): UserDomainModel =
+class UserEntityDomainMapper : ModelMapper<UserEntity, UserDomainModel> {
+    override operator fun invoke(model: UserEntity): UserDomainModel =
         with(model) {
             UserDomainModel(
                 id = id,

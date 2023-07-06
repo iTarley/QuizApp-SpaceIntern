@@ -1,7 +1,9 @@
 package com.space.quizapp.di
 
 
-import com.space.quizapp.presentation.model.mapper.UserUIDomainMapper
+import com.space.quizapp.presentation.model.mapper.quiz.QuizDomainUIMapper
+import com.space.quizapp.presentation.model.mapper.user.UserUIDomainMapper
+import com.space.quizapp.presentation.model.mapper.quiz.question.QuestionDomainUIMapper
 import com.space.quizapp.presentation.ui.home.QuizHomeViewModel
 import com.space.quizapp.presentation.ui.points.QuizPointsViewModel
 import com.space.quizapp.presentation.ui.quiz.QuizViewModel
@@ -12,15 +14,17 @@ import org.koin.dsl.module
 val viewModelModule = module {
 
     viewModel {
-        QuizLogInViewModel(get(),UserUIDomainMapper(),get(),get())
+        QuizLogInViewModel(get(), UserUIDomainMapper(),get(),get())
     }
     viewModel{
-        QuizHomeViewModel(get(),get(),get())
+        QuizHomeViewModel(get(),get(),get(),get(), QuizDomainUIMapper())
     }
     viewModel{
         QuizPointsViewModel(get())
     }
     viewModel{
-        QuizViewModel()
+        QuizViewModel(get(),
+            QuestionDomainUIMapper()
+        )
     }
 }

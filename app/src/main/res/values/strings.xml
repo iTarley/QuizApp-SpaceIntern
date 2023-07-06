@@ -22,4 +22,7 @@
     <string name="gpa_score">GPA -&#160;</string>
     <string name="hello_user">გამარჯობა,&#160; </string>
     <string name="invalid_username">არავალიდური იუზერნეიმი</string>
+    <string name="quiz_congrats">თქვენ დაასრულეთ ქვიზი</string>
+    <string name="wrong_answer">არასწორი პასუხი</string>
+    <string name="corrent_answer">სწორი პასუხი</string>
 </resources>
