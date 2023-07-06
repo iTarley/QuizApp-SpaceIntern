@@ -1,6 +1,5 @@
 package com.space.quizapp.presentation.ui.home
 
-
 import androidx.core.content.ContextCompat
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizHomeBinding
@@ -72,7 +71,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun showLogOutDialog() {
-        showDialog(R.layout.dialog_listener, onPositiveButtonClick = {
+        showDialog(R.layout.dialog_listener,getString(R.string.leaving_question), onPositiveButtonClick = {
             lifecycleScope {
                 viewModel.clearUserSession()
             }

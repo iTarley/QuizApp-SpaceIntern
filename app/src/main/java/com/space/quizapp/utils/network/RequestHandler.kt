@@ -5,7 +5,6 @@ import retrofit2.Response
 abstract class RequestHandler {
     suspend fun <T> apiCall(request:suspend () -> Response<T>): RequestResource<T> {
         return try {
-            RequestResource.loading(null)
             val response = request()
             if (response.isSuccessful){
                 RequestResource.success(response.body()!!)

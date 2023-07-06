@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_star"
             android:drawablePadding="@dimen/dimen_2dp"
+            android:text="+1"
             android:textAlignment="viewEnd"
             android:textColor="@color/neutral_white"
             android:visibility="gone" />

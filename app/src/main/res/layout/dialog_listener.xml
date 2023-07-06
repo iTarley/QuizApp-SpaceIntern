@@ -13,7 +13,7 @@
         android:padding="@dimen/dimen_39dp">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/promptTextView"
+            android:id="@+id/descriptionTextView"
             style="@style/casual_white_text_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             app:cornerRadius="@dimen/dimen_31dp"
             app:layout_constraintEnd_toStartOf="@id/yesButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/promptTextView" />
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextView" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/yesButton"
@@ -52,7 +52,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/noButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/noButton"
-            app:layout_constraintTop_toBottomOf="@+id/promptTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

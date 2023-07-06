@@ -8,6 +8,6 @@ data class QuizQuestionUIModel(
     val questionIndex: Int
 ){
     data class Answer(
-        val answer:String
+        val answer:String,
     )
 }

@@ -52,6 +52,7 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
                 observeStatus()
             }
         }
+        observeStatus()
     }
 
     /**
