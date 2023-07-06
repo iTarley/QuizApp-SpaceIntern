@@ -45,7 +45,7 @@ class QuizLogInViewModel(
             when (val status = authorizeUserUseCase.authorizeUser(userUIDomainMapper(user))) {
                 is Resource.Success -> {
                     saveUserSessionUseCase.saveUserSession(user.username)
-                    navigate(QuizLogInFragmentDirections.actionQuizLogInFragmentToQuizHomeFragment())
+                    setNavigation(QuizLogInFragmentDirections.actionQuizLogInFragmentToQuizHomeFragment())
                 }
                 is Resource.Error -> {
                     setErrorValue(status.message)

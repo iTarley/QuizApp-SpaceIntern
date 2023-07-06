@@ -4,7 +4,7 @@ import com.space.quizapp.domain.model.QuizQuestionDomainModel
 import com.space.quizapp.domain.repository.QuizRepository
 
 class GetQuizQuestionUseCaseImpl(private val repository: QuizRepository):GetQuizQuestionUseCase{
-    override suspend fun invoke(id:Int): List<QuizQuestionDomainModel> {
-        return repository.getQuizQuestion(id)
+    override suspend fun invoke(subjectId:Int): List<QuizQuestionDomainModel> {
+        return repository.getQuizQuestion(subjectId)
     }
 }

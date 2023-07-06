@@ -19,7 +19,8 @@ class QuizQuestionEntityDomainMapper :
             questionTitle = model.questionTitle,
             data = answersUI,
             correctAnswer = model.correctAnswer,
-            questionIndex = model.questionIndex
+            questionIndex = model.questionIndex,
+            subjectId = model.subjectId
         )
     }
 }

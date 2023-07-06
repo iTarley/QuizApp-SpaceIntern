@@ -16,7 +16,7 @@ class QuestionDomainUIMapper:
         }
 
         return QuizQuestionUIModel(
-            id = model.id,
+            subjectId = model.subjectId,
             questionTitle = model.questionTitle,
             data = answersUI,
             correctAnswer = model.correctAnswer,

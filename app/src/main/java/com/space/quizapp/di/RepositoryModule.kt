@@ -9,13 +9,17 @@ import com.space.quizapp.data.local.model.mapper.user.UserEntityDomainMapper
 import com.space.quizapp.data.local.model.mapper.quiz_question.QuizQuestionEntityDomainMapper
 import com.space.quizapp.data.repository.QuizRepositoryImpl
 import com.space.quizapp.data.repository.UserAuthRepositoryImpl
+import com.space.quizapp.data.repository.UserQuizPointsRepositoryImpl
 import com.space.quizapp.data.repository.UserSessionRepositoryImpl
 import com.space.quizapp.domain.repository.QuizRepository
 import com.space.quizapp.domain.repository.UserAuthRepository
+import com.space.quizapp.domain.repository.UserQuizPointsRepository
 import com.space.quizapp.domain.repository.UserSessionRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
+
+    //TODO DI FOR MAPPERS
     single<UserAuthRepository> {
         UserAuthRepositoryImpl(
             get(), UserDomainEntityMapper(),
@@ -33,4 +37,6 @@ val repositoryModule = module {
         QuizQuestionEntityDtoMapper(),
         get()
     )}
+
+    single<UserQuizPointsRepository> { UserQuizPointsRepositoryImpl(get()) }
 }

@@ -25,7 +25,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
     }
 
     override fun onBind() {
-        observe()
+        setObserver()
         setBackListener()
     }
 
@@ -39,6 +39,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
                 R.layout.dialog_listener,
                 getString(R.string.leaving_question),
                 onPositiveButtonClick = {
+                    saveGpa(index = adapter.quizId, quizPoints = adapter.quizId)
                     showDialog(
                         R.layout.dialog_alert,
                         buildString {
@@ -54,10 +55,16 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
         }
     }
 
+    private fun saveGpa(index:Int,quizPoints:Int){
+        observe(viewModel.quizData){
+            viewModel.saveGpa(it[index].subjectId, quizPoints)
+        }
+    }
+
     /**
      * Function to observe the quiz data
      */
-    private fun observe() {
+    private fun setObserver() {
         val position = args.position
         val quizTitle = args.quizTitle
         setAdapter()
@@ -76,6 +83,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
                 adapter.submitList(answer[adapter.quizId].data)
 
                 if (adapter.quizState == QuizState.FINISHED) {
+                    saveGpa(index = adapter.quizId,adapter.quizId + 1)
                     showDialog(
                         R.layout.dialog_alert,
                         buildString {
@@ -83,6 +91,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
                             append(adapter.quizId + 1)
                             append(getString(R.string.point))
                         },
+                        cancelable = false,
                         onPositiveButtonClick = {
                             popBackStack(requireView())
                         })

@@ -1,8 +1,13 @@
 package com.space.quizapp.presentation.ui.points
 
+import android.util.Log
+import android.view.View
+import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizPointBinding
 import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
+import com.space.quizapp.presentation.ui.home.adapter.QuizListAdapter
+import com.space.quizapp.presentation.ui.quiz.QuizFragmentArgs
 import com.space.quizapp.utils.extensions.*
 import kotlin.reflect.KClass
 
@@ -14,12 +19,32 @@ class QuizPointsFragment : QuizBaseFragment<QuizPointsViewModel>() {
         get() = QuizPointsViewModel::class
 
     private val binding by viewBinding(FragmentQuizPointBinding::bind)
-
+    private val args: QuizPointsFragmentArgs by navArgs()
     override fun onBind() {
-        navigate()
+        setNavigation()
+        setObserver()
     }
 
-    private fun navigate() {
+    private val adapter by lazy {
+        QuizListAdapter()
+    }
+
+    private fun setObserver(){
+        setAdapter()
+        viewModel.getQuiz(args.userId)
+        observe(viewModel.quizData){
+            if (it != null) {
+                binding.notEarnedTextView.visibility = View.GONE
+                adapter.submitList(it)
+            }
+        }
+    }
+
+    private fun setAdapter(){
+        binding.scoreRecyclerView.adapter = adapter
+    }
+
+    private fun setNavigation() {
         with(binding){
             navBackImageButton.setOnClickListener {
                 popBackStack(it)
