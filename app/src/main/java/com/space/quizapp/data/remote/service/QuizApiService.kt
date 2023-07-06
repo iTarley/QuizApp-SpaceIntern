@@ -1,6 +1,6 @@
 package com.space.quizapp.data.remote.service
 
-import com.space.quizapp.data.remote.model.dto.QuizDtoItem
+import com.space.quizapp.data.remote.model.QuizDtoItem
 import retrofit2.Response
 import retrofit2.http.GET
 

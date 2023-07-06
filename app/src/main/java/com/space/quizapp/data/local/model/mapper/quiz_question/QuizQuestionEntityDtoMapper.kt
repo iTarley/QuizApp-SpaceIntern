@@ -1,6 +1,6 @@
 package com.space.quizapp.data.local.model.mapper.quiz_question
 
-import com.space.quizapp.data.remote.model.dto.QuizDtoItem
+import com.space.quizapp.data.remote.model.QuizDtoItem
 import com.space.quizapp.data.local.model.entity.QuizQuestionEntity
 import com.space.quizapp.utils.mapper.ModelMapper
 

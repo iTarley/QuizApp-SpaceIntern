@@ -1,4 +1,4 @@
-package com.space.quizapp.data.remote.model.dto
+package com.space.quizapp.data.remote.model
 
 
 data class QuizDtoItem(

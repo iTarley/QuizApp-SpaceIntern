@@ -8,7 +8,6 @@ data class QuizSubjectEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val image: String?,
-    val questionsCount: Int?,
     val quizDescription: String?,
     val quizTitle: String?,
 )

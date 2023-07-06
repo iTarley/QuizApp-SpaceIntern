@@ -15,7 +15,8 @@ fun Fragment.showDialog(
     layoutResId: Int,
     messageText: String,
     cancelable:Boolean = true,
-    onPositiveButtonClick: () -> Unit
+    onPositiveButtonClick: () -> Unit,
+
 ) {
     val dialog = Dialog(requireContext())
     dialog.setContentView(layoutResId)
@@ -29,7 +30,7 @@ fun Fragment.showDialog(
     val messageTextView = dialog.findViewById<TextView>(R.id.descriptionTextView)
     val yesButton = dialog.findViewById<Button>(R.id.yesButton)
     val noButton = dialog.findViewById<Button>(R.id.noButton)
-    val setCancelable = dialog.setCancelable(cancelable)
+    dialog.setCancelable(cancelable)
 
     messageTextView.text = messageText
 

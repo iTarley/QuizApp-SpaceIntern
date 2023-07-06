@@ -17,6 +17,11 @@ class QuizQuestionsAdapter :
     var quizId = 0
     var quizState = QuizState.IN_PROGRESS
 
+    //
+
+    //
+
+
     override fun createBinding(parent: ViewGroup): ItemAnswerBinding {
         return parent.viewBinding(ItemAnswerBinding::inflate)
     }
