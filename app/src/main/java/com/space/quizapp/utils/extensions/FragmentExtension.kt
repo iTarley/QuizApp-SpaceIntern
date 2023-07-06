@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.space.quizapp.R
 

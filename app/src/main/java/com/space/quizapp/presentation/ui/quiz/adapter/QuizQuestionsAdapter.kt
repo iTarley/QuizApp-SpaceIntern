@@ -5,32 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.space.quizapp.R
 import com.space.quizapp.databinding.ItemAnswerBinding
 import com.space.quizapp.presentation.model.QuizQuestionUIModel
 import com.space.quizapp.presentation.ui.base.adapter.BaseListAdapter
 import com.space.quizapp.presentation.ui.base.adapter.BaseViewHolder
-import com.space.quizapp.presentation.ui.quiz.adapter.manager.QuizManager
 import com.space.quizapp.utils.extensions.setTextColorCompat
 import com.space.quizapp.utils.extensions.setTint
 
-class QuizQuestionsAdapter() :
+class QuizQuestionsAdapter(private val onAnswerSelected: (Boolean, Int, Boolean) -> Unit) :
     BaseListAdapter<QuizQuestionUIModel.Answer, ItemAnswerBinding>(MyItemDiffCallback()) {
 
-    var quizId = 0
-    var points = 0.0
-    var lastQuestion = false
     var clickable = true
     private var recyclerView: RecyclerView? = null
-    private var quizManager: QuizManager = QuizManager(this)
 
-
-    fun getItemBinding(position: Int): ItemAnswerBinding? {
+    private fun getItemBinding(position: Int): ItemAnswerBinding? {
         val viewHolder = recyclerView!!.findViewHolderForAdapterPosition(position)
-        return viewHolder?.let {
-            (it as? BaseViewHolder<ItemAnswerBinding>)?.binding
-        }
+        return (viewHolder as? BaseViewHolder<ItemAnswerBinding>)?.binding
     }
 
     override fun createBinding(parent: ViewGroup): ItemAnswerBinding {
@@ -42,15 +33,54 @@ class QuizQuestionsAdapter() :
         item: QuizQuestionUIModel.Answer,
         position: Int
     ) {
-        with(binding){
+        with(binding) {
             optionTitleTextView.text = item.answer
             answerCardView.setTint(R.color.neutral_light_gray)
             correctPointTextView.visibility = View.GONE
             optionTitleTextView.setTextColorCompat(R.color.neutral_dark_grey)
             answerCardView.setOnClickListener {
                 if (clickable) {
-                    quizManager.handleAnswerClick(binding, item, position)
+                    handleAnswerClick(binding, item, position)
                 }
+            }
+        }
+    }
+
+    private fun handleAnswerClick(
+        binding: ItemAnswerBinding,
+        item: QuizQuestionUIModel.Answer,
+        position: Int
+    ) {
+        val correctAnswer = item.correctAnswer
+        val plusPoint = item.point
+        val isLastQuestion = item.lastQuestion
+        val isCorrectAnswer = correctAnswer == position
+
+        binding.root.setTint(if (isCorrectAnswer) R.color.success_green else R.color.wrong_red)
+        binding.optionTitleTextView.setTextColorCompat(R.color.neutral_white)
+        clickable = false
+
+        if (isCorrectAnswer) {
+            handleAnswer(binding, true, plusPoint, isLastQuestion)
+        } else {
+            val correctBinding = getItemBinding(correctAnswer)
+            correctBinding?.root?.setTint(R.color.success_green)
+            correctBinding?.optionTitleTextView?.setTextColorCompat(R.color.neutral_white)
+            handleAnswer(binding, false, isLastQuestion = isLastQuestion)
+        }
+    }
+
+    private fun handleAnswer(
+        binding: ItemAnswerBinding,
+        isCorrectAnswer: Boolean,
+        plusPoint: Int = 0,
+        isLastQuestion: Boolean
+    ) {
+        onAnswerSelected.invoke(isCorrectAnswer, plusPoint, isLastQuestion)
+        if (isCorrectAnswer) {
+            binding.correctPointTextView.apply {
+                visibility = View.VISIBLE
+                text = "+$plusPoint"
             }
         }
 
@@ -61,7 +91,6 @@ class QuizQuestionsAdapter() :
             oldItem: QuizQuestionUIModel.Answer,
             newItem: QuizQuestionUIModel.Answer
         ): Boolean {
-            // Compare based on unique identifiers of the items
             return oldItem.answer == newItem.answer
         }
 
@@ -69,7 +98,6 @@ class QuizQuestionsAdapter() :
             oldItem: QuizQuestionUIModel.Answer,
             newItem: QuizQuestionUIModel.Answer
         ): Boolean {
-            // Compare based on the actual content of the items
             return oldItem == newItem
         }
     }

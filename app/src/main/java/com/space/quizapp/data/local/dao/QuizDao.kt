@@ -7,7 +7,6 @@ import androidx.room.Query
 import com.space.quizapp.data.local.model.entity.QuizPointsEntity
 import com.space.quizapp.data.local.model.entity.QuizQuestionEntity
 import com.space.quizapp.data.local.model.entity.QuizSubjectEntity
-import com.space.quizapp.domain.model.QuizPointsDomainModel
 
 @Dao
 interface QuizDao {

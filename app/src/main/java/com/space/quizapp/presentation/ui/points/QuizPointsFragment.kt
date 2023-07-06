@@ -34,7 +34,7 @@ class QuizPointsFragment : QuizBaseFragment<QuizPointsViewModel>() {
         observe(viewModel.quizData){
             if (it.isNotEmpty()) {
                 binding.notEarnedTextView.visibility = View.GONE
-                adapter.submitList(it)
+                adapter.submitList(it.sortedBy{it.id})
             }else{
                 binding.notEarnedTextView.visibility = View.VISIBLE
             }

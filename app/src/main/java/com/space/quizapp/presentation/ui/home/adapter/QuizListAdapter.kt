@@ -28,6 +28,9 @@ class QuizListAdapter(private val onItemClick: (QuizUIModel) -> Unit): BaseListA
             root.setOnClickListener {
                 onItemClick(item)
             }
+            startImageButton.setOnClickListener {
+                onItemClick(item)
+            }
         }
     }
 
