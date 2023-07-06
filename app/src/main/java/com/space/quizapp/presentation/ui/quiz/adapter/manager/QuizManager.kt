@@ -9,49 +9,43 @@ import com.space.quizapp.presentation.ui.quiz.adapter.QuizQuestionsAdapter
 import com.space.quizapp.utils.extensions.setTint
 
 class QuizManager(private val adapter: QuizQuestionsAdapter) {
-    private fun lastQuestion(): Boolean {
-        val quizSize = adapter.quiz?.size ?: 0
-        return adapter.quizId >= quizSize - 1
-    }
 
-    fun handleAnswerClick(binding: ItemAnswerBinding, item: QuizQuestionUIModel.Answer) {
-        val currentQuestion = adapter.quiz?.get(adapter.quizId) ?: return
-        val correctAnswer = currentQuestion.correctAnswer
-        val correctInAnswersIndex = currentQuestion.data.indexOfFirst { it.answer == correctAnswer }
-        val correctBinding = adapter.getItemBinding(correctInAnswersIndex)
+    fun handleAnswerClick(binding: ItemAnswerBinding, item: QuizQuestionUIModel.Answer,position:Int) {
+        val correctAnswer = item.correctAnswer
+        val lastQuestion = item.lastQuestion
+        val plusPoint = item.point
+        val correctBinding = adapter.getItemBinding(correctAnswer)
 
         binding.root.setTint(R.color.neutral_light_gray)
 
-        if (item.answer == correctAnswer) {
-            handleCorrectAnswer(binding)
+        if (item.correctAnswer == position) {
+            handleCorrectAnswer(binding,lastQuestion,plusPoint)
         } else {
-            handleWrongAnswer(binding, correctBinding)
+            handleWrongAnswer(binding, correctBinding,lastQuestion)
         }
     }
 
-    private fun handleCorrectAnswer(binding: ItemAnswerBinding) {
-        adapter.points++
+
+    private fun handleCorrectAnswer(binding: ItemAnswerBinding,lastQuestion:Boolean,plusPoint:Int) {
+        adapter.points += plusPoint
         binding.answerCardView.setTint(R.color.success_green)
         binding.correctPointTextView.visibility = View.VISIBLE
-        adapter.clickable = false
-
-        if (lastQuestion()) {
+        if (lastQuestion) {
             adapter.lastQuestion = true
-        } else {
+        }else{
             adapter.quizId++
         }
     }
 
-    private fun handleWrongAnswer(binding: ItemAnswerBinding, correctBinding: ViewBinding?) {
+    private fun handleWrongAnswer(binding: ItemAnswerBinding, correctBinding: ViewBinding?,lastQuestion:Boolean) {
         binding.answerCardView.setTint(R.color.wrong_red)
         binding.correctPointTextView.visibility = View.GONE
 
         correctBinding?.root?.setTint(R.color.success_green)
-        adapter.clickable = false
 
-        if (lastQuestion()) {
+        if (lastQuestion) {
             adapter.lastQuestion = true
-        } else {
+        }else{
             adapter.quizId++
         }
     }

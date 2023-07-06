@@ -11,7 +11,9 @@ data class QuizDtoItem(
 ) {
     data class QuestionDto(
         val answers: List<String>,
-        val correctAnswer: String,
+        val lastQuestion:Boolean,
+        val point:Int,
+        val correctAnswer: Int,
         val questionIndex: Int,
         val questionTitle: String
     )

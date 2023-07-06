@@ -10,7 +10,6 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.space.quizapp.R
 
-//TODO switch findViewById to binding
 fun Fragment.showDialog(
     layoutResId: Int,
     messageText: String,

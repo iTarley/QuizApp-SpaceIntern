@@ -17,7 +17,8 @@ class QuizListAdapter(private val onItemClick: (QuizUIModel) -> Unit): BaseListA
 
     override fun onBind(
         binding: ItemSubjectBinding,
-        item: QuizUIModel
+        item: QuizUIModel,
+        position: Int
     ) {
         with(binding){
             subjectTextView.text = item.quizTitle

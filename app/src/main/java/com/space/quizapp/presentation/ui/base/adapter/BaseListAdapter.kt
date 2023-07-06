@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseListAdapter<T : Any, VB : ViewBinding>(
-    diffCallback: DiffUtil.ItemCallback<T>
+    diffCallback: DiffUtil.ItemCallback<T>,
 ) : ListAdapter<T, BaseViewHolder<VB>>(diffCallback){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
@@ -17,13 +17,13 @@ abstract class BaseListAdapter<T : Any, VB : ViewBinding>(
 
     override fun onBindViewHolder(holder: BaseViewHolder<VB>, position: Int) {
         val item = getItem(position)
-        onBind(holder.binding, item)
-
+        onBind(holder.binding, item,position)
     }
 
     protected abstract fun createBinding(parent: ViewGroup): VB
-    protected abstract fun onBind(binding: VB, item: T)
+    protected abstract fun onBind(binding: VB, item: T,position: Int)
 
 }
 
-class BaseViewHolder<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root){}
+class BaseViewHolder<VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root){
+}

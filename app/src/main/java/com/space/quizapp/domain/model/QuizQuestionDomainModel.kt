@@ -6,10 +6,12 @@ data class QuizQuestionDomainModel(
     val subjectId: Int = 0,
     val questionTitle: String,
     val data: List<Answer> = emptyList(),
-    val correctAnswer: String,
+    val point:Int,
+    val correctAnswer: Int,
     val questionIndex: Int
 ){
     data class Answer(
-        val answer:String
+        val answer:String,
+        val lastQuestion:Boolean
     )
 }

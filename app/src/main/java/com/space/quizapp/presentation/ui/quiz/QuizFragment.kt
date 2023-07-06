@@ -1,7 +1,6 @@
 package com.space.quizapp.presentation.ui.quiz
 
 
-import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
@@ -21,7 +20,7 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
     private val binding by viewBinding(FragmentQuizBinding::bind)
     private val args: QuizFragmentArgs by navArgs()
     private val adapter by lazy {
-        QuizQuestionsAdapter {}
+        QuizQuestionsAdapter()
     }
 
     override fun onBind() {
@@ -84,10 +83,8 @@ class QuizFragment : QuizBaseFragment<QuizViewModel>() {
          * Observe the quiz data, set the adapter and submit the list
          */
         observe(viewModel.quizData) { answer ->
-            adapter.setQuizList(answer)
             adapter.submitList(answer[adapter.quizId].data)
             binding.questionTextView.text = answer[adapter.quizId].questionTitle
-            Log.d("luka", "setObserver: ${answer[adapter.quizId].questionTitle}")
             binding.startQuizButton.setOnClickListener {
                 adapter.submitList(answer[adapter.quizId].data)
                 binding.questionTextView.text = answer[adapter.quizId].questionTitle
