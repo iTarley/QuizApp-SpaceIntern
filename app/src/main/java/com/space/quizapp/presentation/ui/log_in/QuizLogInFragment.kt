@@ -27,11 +27,13 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
      * Observe the session, if session is not empty navigate to home fragment
      */
     private fun observeSession() {
-        viewModel.observeSession()
-        lifecycleScope {
-            observe(viewModel.session){
-                if (it?.isNotEmpty() == true) {
-                    viewModel.navigate(QuizLogInFragmentDirections.actionQuizLogInFragmentToQuizHomeFragment())
+        with(viewModel) {
+            observeSession()
+            lifecycleScope {
+                observe(session) {
+                    if (it?.isNotEmpty() == true) {
+                        navigate(QuizLogInFragmentDirections.actionQuizLogInFragmentToQuizHomeFragment())
+                    }
                 }
             }
         }
@@ -57,7 +59,7 @@ class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {
      */
     private fun observeStatus() {
         observe(viewModel.errorStatus){
-            binding.inputLayout.error = getString(it)
+            binding.inputLayout.error = getString(it.toString().toInt())
         }
     }
 }

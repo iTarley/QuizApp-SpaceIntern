@@ -23,15 +23,14 @@ val repositoryModule = module {
         )
     }
     single<UserSessionRepository> { UserSessionRepositoryImpl(get()) }
-    single<QuizRepository> {
-        QuizRepositoryImpl(
-            get(),
-            get(),
-            QuizDtoDomainMapper(),
-            QuizDtoEntityMapper(),
-            QuizEntityDomainMapper(),
-            QuizQuestionEntityDomainMapper(),
-            QuizQuestionEntityDtoMapper()
-        )
-    }
+
+    single<QuizRepository>{ QuizRepositoryImpl(
+        get(),
+        QuizDtoDomainMapper(),
+        QuizDtoEntityMapper(),
+        QuizEntityDomainMapper(),
+        QuizQuestionEntityDomainMapper(),
+        QuizQuestionEntityDtoMapper(),
+        get()
+    )}
 }

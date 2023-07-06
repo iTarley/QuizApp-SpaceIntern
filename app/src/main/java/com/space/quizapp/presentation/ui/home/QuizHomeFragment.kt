@@ -61,7 +61,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
     }
 
     private fun navigate() {
-        with(binding) {
+        with(binding){
             blueGpaVectorView.setOnClickListener {
                 viewModel.navigate(QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizPointsFragment())
             }
