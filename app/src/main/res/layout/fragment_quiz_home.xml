@@ -47,8 +47,11 @@
         style="@style/casual_white_text_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_28dp"
-        android:layout_marginTop="@dimen/dimen_27dp"
+        android:background="@drawable/shape_round_button"
+        android:backgroundTint="@color/blue_secondary_lighter"
+        android:padding="@dimen/dimen_8dp"
+        android:layout_marginStart="@dimen/dimen_18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/blueGpaVectorView"
         app:layout_constraintStart_toStartOf="@+id/blueGpaVectorView"
         app:layout_constraintTop_toTopOf="@+id/blueGpaVectorView" />
 

@@ -21,9 +21,7 @@ class UserAuthRepositoryImpl(
         userDao.saveUser(domainEntityMapper(user))
     }
 
-    override suspend fun getUserPoints(username: String): Double? {
-        val userEntity = userDao.getUserByUsername(username)
-        val userDomainModel = userEntity?.let { entityDomainMapper(it) }
-        return userDomainModel?.points
+    override suspend fun getUserPoints(userId: String): Double {
+        return userDao.getQuizPointsForSubject(userId)
     }
 }
