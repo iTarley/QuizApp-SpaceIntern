@@ -1,0 +1,52 @@
+[versions]
+coreKtx = "1.10.1"
+appcompat = "1.6.1"
+material = "1.9.0"
+constraintLayout = "2.1.4"
+lifecycleLiveDataKtx = "2.6.1"
+lifecycleViewModelKtx = "2.6.1"
+legacySupportV4 = "1.0.0"
+junit = "4.13.2"
+junitExt = "1.1.5"
+espressoCore = "3.5.1"
+navigationFragment = "2.5.3"
+navigationUI = "2.5.3"
+datastorePreferences = "1.0.0"
+koin = "3.4.0"
+moshi = "1.13.0"
+moshiKotlin = "1.12.0"
+moshiKotlinCodegen = "1.12.0"
+coil = "2.4.0"
+roomRuntime = "2.5.1"
+roomCompiler = "2.5.1"
+roomKtx = "2.5.1"
+kotlinReflect = "1.8.10"
+retrofit = "2.9.0"
+retrofitMoshi = "2.9.0"
+
+[libraries]
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayout" }
+lifecycleLiveDataKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLiveDataKtx" }
+lifecycleViewModelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewModelKtx" }
+legacySupportV4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
+junit = { module = "junit:junit", version.ref = "junit" }
+junitExt = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
+espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+navigationFragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationFragment" }
+navigationUI = { module = "androidx.navigation:navigation-ui", version.ref = "navigationUI" }
+datastorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+koin = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+moshiKotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }
+moshiKotlinCodegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshiKotlinCodegen" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+roomRuntime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+roomCompiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+roomKtx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+kotlinReflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinReflect" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofitMoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofitMoshi" }
+

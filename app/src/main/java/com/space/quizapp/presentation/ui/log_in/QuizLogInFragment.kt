@@ -4,10 +4,9 @@ package com.space.quizapp.presentation.ui.log_in
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentLoginBinding
 import com.space.quizapp.presentation.model.UserUIModel
-import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
-import com.space.quizapp.utils.extensions.lifecycleScope
-import com.space.quizapp.utils.extensions.observe
-import com.space.quizapp.utils.extensions.viewBinding
+import com.space.util.base.fragment.QuizBaseFragment
+import com.space.util.extensions.observe
+import com.space.util.extensions.viewBinding
 import kotlin.reflect.KClass
 
 class QuizLogInFragment : QuizBaseFragment<QuizLogInViewModel>() {

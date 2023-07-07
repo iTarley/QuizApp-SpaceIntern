@@ -7,7 +7,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.space.quizapp.R
-import com.space.quizapp.presentation.ui.base.custom_view.QuizBaseCustomView
+import com.space.util.base.custom_view.QuizBaseCustomView
 
 /**
  * A custom view that draws a blue vector on the top and a white vector on the bottom.

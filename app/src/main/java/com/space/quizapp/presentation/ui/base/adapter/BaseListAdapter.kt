@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.space.util.base.adapter.BaseViewHolder
 
 abstract class BaseListAdapter<T : Any, VB : ViewBinding>(
     diffCallback: DiffUtil.ItemCallback<T>,

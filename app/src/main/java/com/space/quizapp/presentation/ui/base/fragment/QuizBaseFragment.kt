@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.space.quizapp.presentation.ui.base.viewmodel.QuizBaseViewModel
+import com.space.util.base.viewmodel.QuizBaseViewModel
 import com.space.quizapp.utils.extensions.navigateSafe
-import com.space.quizapp.utils.extensions.observe
+import com.space.util.extensions.observe
 import org.koin.androidx.viewmodel.ext.android.viewModelForClass
 import kotlin.reflect.KClass
 

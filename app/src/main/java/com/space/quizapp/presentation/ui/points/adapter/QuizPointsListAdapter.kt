@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.DiffUtil
 import coil.load
 import com.space.quizapp.databinding.ItemSubjectBinding
 import com.space.quizapp.presentation.model.QuizPointsUIModel
-import com.space.quizapp.presentation.ui.base.adapter.BaseListAdapter
-import com.space.quizapp.utils.extensions.viewBinding
+import com.space.util.base.adapter.BaseListAdapter
+import com.space.util.extensions.viewBinding
 
 class QuizPointsListAdapter: BaseListAdapter<QuizPointsUIModel, ItemSubjectBinding>(MyItemDiffCallback()) {
 

@@ -3,14 +3,13 @@ package com.space.quizapp.presentation.ui.base.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
-import com.space.quizapp.utils.extensions.SingleLiveEvent
+import com.space.util.extensions.SingleLiveEvent
 
 
 abstract class QuizBaseViewModel:ViewModel() {
     private val _errorStatus = MutableLiveData<Any>()
     val errorStatus get() = _errorStatus
 
-    //TODO ADD LOAD HANDLING
     private val _loadStatus = MutableLiveData<Int>()
     val loadStatus get() = _loadStatus
 

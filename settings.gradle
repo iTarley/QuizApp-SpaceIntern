@@ -14,3 +14,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Quiz App - Space Intern"
 include ':app'
+include ':core:util'
+include ':feature:quiz'
+include ':core:data'
+include ':NavigationApi'
+include ':feature:quizApi'

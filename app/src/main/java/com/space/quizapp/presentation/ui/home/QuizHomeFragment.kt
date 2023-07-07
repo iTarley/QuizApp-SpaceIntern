@@ -1,12 +1,16 @@
 package com.space.quizapp.presentation.ui.home
 
+import android.os.Bundle
 import android.util.Log
 import androidx.core.content.ContextCompat
+import com.space.quizapi.QuizFeatureNavigator
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizHomeBinding
-import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
+import com.space.util.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.home.adapter.QuizListAdapter
-import com.space.quizapp.utils.extensions.*
+import com.space.util.extensions.showDialog
+import com.space.util.extensions.*
+import org.koin.android.ext.android.inject
 import kotlin.reflect.KClass
 
 class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
@@ -22,13 +26,7 @@ class QuizHomeFragment : QuizBaseFragment<QuizHomeViewModel>() {
 
     private val adapter by lazy {
         QuizListAdapter {
-            viewModel.setNavigation(
-                QuizHomeFragmentDirections.actionQuizHomeFragmentToQuizFragment(
-                    it.quizTitle,
-                    it.questionsCount,
-                    it.id,
-                    )
-            )
+            viewModel.navigate()
         }
     }
 

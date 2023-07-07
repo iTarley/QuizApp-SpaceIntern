@@ -2,7 +2,7 @@ package com.space.quizapp.presentation.model.mapper.quiz
 
 import com.space.quizapp.domain.model.QuizDomainModel
 import com.space.quizapp.presentation.model.QuizUIModel
-import com.space.quizapp.utils.mapper.ModelMapper
+import com.space.util.mapper.ModelMapper
 
 class QuizDomainUIMapper(
 ) : ModelMapper<QuizDomainModel, QuizUIModel> {

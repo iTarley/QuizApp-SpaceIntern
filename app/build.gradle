@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'com.space.quizapp'
-    compileSdk 33
+    compileSdk ProjectConfig.compileSdk
 
     defaultConfig {
         applicationId "com.space.quizapp"
-        minSdk 24
-        targetSdk 33
+        minSdk ProjectConfig.minSdk
+        targetSdk ProjectConfig.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -35,48 +35,54 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dynamicFeatures = []
 }
 
 dependencies {
+    implementation(libs.coreKtx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintLayout)
+    implementation(libs.lifecycleLiveDataKtx)
+    implementation(libs.lifecycleViewModelKtx)
+    implementation(libs.legacySupportV4)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junitExt)
+    androidTestImplementation(libs.espressoCore)
 
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    // Navigation
+    implementation(libs.navigationFragment)
+    implementation(libs.navigationUI)
 
-    //Navigation
-    implementation "androidx.navigation:navigation-fragment:2.5.3"
-    implementation "androidx.navigation:navigation-ui:2.5.3"
+    // DataStore
+    implementation(libs.datastorePreferences)
 
-    //dataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    // Koin
+    implementation(libs.koin)
 
-    //koin
-    implementation "io.insert-koin:koin-android:3.4.0"
+    // Moshi
+    implementation(libs.moshi)
+    implementation(libs.moshiKotlin)
+    kapt(libs.moshiKotlinCodegen)
 
+    // Coil
+    implementation(libs.coil)
 
-    //Moshi
-    implementation "com.squareup.moshi:moshi:1.13.0"
-    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
+    // Room
+    implementation(libs.roomRuntime)
+    annotationProcessor(libs.roomCompiler)
+    kapt(libs.roomCompiler)
+    implementation(libs.roomKtx)
+    implementation(libs.kotlinReflect)
 
-    //coil
-    implementation("io.coil-kt:coil:2.4.0")
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofitMoshi)
 
-    //Room
-    implementation "androidx.room:room-runtime:2.5.1"
-    annotationProcessor "androidx.room:room-compiler:2.5.1"
-    kapt "androidx.room:room-compiler:2.5.1"
-    implementation "androidx.room:room-ktx:2.5.1"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.10"
-
-    //retrofit
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    //module
+    implementation project(path: ':core:util')
+    implementation project(path: ':core:data')
+    implementation project(path: ':feature:quiz')
+    implementation project(path: ':NavigationApi')
+    implementation project(path: ':feature:quizApi')
 }

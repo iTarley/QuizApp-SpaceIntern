@@ -16,8 +16,8 @@ import com.space.quizapp.domain.usecase.quiz.get.quiz.GetQuizUseCase
 import com.space.quizapp.domain.usecase.quiz.get.quiz.GetQuizUseCaseImpl
 import com.space.quizapp.domain.usecase.quiz.get.quiz_gpa.GetQuizForGpaUseCase
 import com.space.quizapp.domain.usecase.quiz.get.quiz_gpa.GetQuizForGpaUseCaseImpl
-import com.space.quizapp.domain.usecase.quiz.get.quiz_question.GetQuizQuestionUseCase
-import com.space.quizapp.domain.usecase.quiz.get.quiz_question.GetQuizQuestionUseCaseImpl
+import com.space.quiz.domain.usecase.GetQuizQuestionUseCase
+import com.space.quiz.domain.usecase.GetQuizQuestionUseCaseImpl
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -25,7 +25,7 @@ val useCaseModule = module {
     single<AuthorizeUserUseCase> { AuthorizeUserUseCaseImpl(get()) }
     single<GetUserPointsUseCase> { GetUserPointsUseCaseImpl(get()) }
     single <GetQuizUseCase>{ GetQuizUseCaseImpl(get()) }
-    single <GetQuizQuestionUseCase>{ GetQuizQuestionUseCaseImpl(get()) }
+
     single<InsertQuizPointsUseCase> { InsertQuizPointsUseCaseImpl(get()) }
     single<GetQuizForGpaUseCase> { GetQuizForGpaUseCaseImpl(get()) }
 

@@ -1,12 +1,12 @@
 package com.space.quizapp.data.local.model.mapper.quiz
 
-import com.space.quizapp.data.local.model.entity.QuizSubjectEntity
+import com.space.data.entity.QuizSubjectEntity
 import com.space.quizapp.data.remote.model.QuizDtoItem
-import com.space.quizapp.utils.mapper.ModelMapper
+import com.space.util.mapper.ModelMapper
 
-class QuizDtoEntityMapper : ModelMapper<QuizDtoItem, QuizSubjectEntity> {
-    override fun invoke(model: QuizDtoItem): QuizSubjectEntity {
-        return QuizSubjectEntity(
+class QuizDtoEntityMapper : ModelMapper<QuizDtoItem, com.space.data.entity.QuizSubjectEntity> {
+    override operator fun invoke(model: QuizDtoItem): com.space.data.entity.QuizSubjectEntity {
+        return com.space.data.entity.QuizSubjectEntity(
             id = model.id,
             quizTitle = model.quizTitle,
             questionsCount = model.questionsCount,

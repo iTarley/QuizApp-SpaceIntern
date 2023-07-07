@@ -1,13 +1,16 @@
 package com.space.quizapp.presentation.ui.points
 
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import com.space.quizapp.R
 import com.space.quizapp.databinding.FragmentQuizPointBinding
-import com.space.quizapp.presentation.ui.base.fragment.QuizBaseFragment
+import com.space.util.base.fragment.QuizBaseFragment
 import com.space.quizapp.presentation.ui.points.adapter.QuizPointsListAdapter
 import com.space.quizapp.utils.extensions.*
+import com.space.util.extensions.lifecycleScope
+import com.space.util.extensions.observe
+import com.space.util.extensions.viewBinding
+import com.space.util.extensions.showDialog
 import kotlin.reflect.KClass
 
 class QuizPointsFragment : QuizBaseFragment<QuizPointsViewModel>() {

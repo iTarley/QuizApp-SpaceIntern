@@ -1,15 +1,18 @@
 package com.space.quizapp.presentation.ui.home
 
+import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.space.quizapi.QuizFeatureNavigator
 import com.space.quizapp.domain.usecase.current_user.clear.ClearUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.points.get.GetUserPointsUseCase
 import com.space.quizapp.domain.usecase.quiz.get.quiz.GetQuizUseCase
 import com.space.quizapp.presentation.model.QuizUIModel
 import com.space.quizapp.presentation.model.mapper.quiz.QuizDomainUIMapper
-import com.space.quizapp.presentation.ui.base.viewmodel.QuizBaseViewModel
-import com.space.quizapp.utils.extensions.viewModelScope
-import com.space.quizapp.utils.network.RequestResource
+import com.space.util.base.viewmodel.QuizBaseViewModel
+import com.space.util.extensions.viewModelScope
+import com.space.util.network.RequestResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -24,6 +27,7 @@ class QuizHomeViewModel(
     private val clearUserSessionUseCase: ClearUserSessionUseCase,
     private val getQuizUseCase: GetQuizUseCase,
     private val domainToUiMapper: QuizDomainUIMapper,
+    private val secondFragmentNavigator: QuizFeatureNavigator
 ) : QuizBaseViewModel() {
 
     private val _userPoints = MutableLiveData<Double?>()
@@ -77,5 +81,14 @@ class QuizHomeViewModel(
             }
             _userPoints.value = points
         }
+    }
+
+    fun navigate(){
+        val bundle = Bundle()
+        bundle.putInt("position", 0)
+        bundle.putInt("quizCount", 5)
+        bundle.putString("quizTitle", "geography")
+        secondFragmentNavigator.navigateToSecondFragment(bundle)
+
     }
 }

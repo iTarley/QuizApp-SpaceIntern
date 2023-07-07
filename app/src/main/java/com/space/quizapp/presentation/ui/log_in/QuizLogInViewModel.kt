@@ -6,9 +6,9 @@ import com.space.quizapp.domain.usecase.current_user.get.GetUserSessionUseCase
 import com.space.quizapp.domain.usecase.current_user.save.SaveUserSessionUseCase
 import com.space.quizapp.presentation.model.UserUIModel
 import com.space.quizapp.presentation.model.mapper.user.UserUIDomainMapper
-import com.space.quizapp.presentation.ui.base.viewmodel.QuizBaseViewModel
-import com.space.quizapp.utils.Resource
-import com.space.quizapp.utils.extensions.viewModelScope
+import com.space.util.base.viewmodel.QuizBaseViewModel
+import com.space.util.Resource
+import com.space.util.extensions.viewModelScope
 
 /**
  * QuizLogInViewModel is responsible for handling the log in and registration of the user

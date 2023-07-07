@@ -2,9 +2,9 @@ package com.space.quizapp.presentation.model.mapper.quiz_point
 
 import com.space.quizapp.domain.model.QuizPointsDomainModel
 import com.space.quizapp.presentation.model.QuizPointsUIModel
-import com.space.quizapp.utils.mapper.ModelMapper
+import com.space.util.mapper.ModelMapper
 
-class QuizPointDomainUIMapper:ModelMapper<QuizPointsDomainModel,QuizPointsUIModel> {
+class QuizPointDomainUIMapper: ModelMapper<QuizPointsDomainModel, QuizPointsUIModel> {
     override fun invoke(model: QuizPointsDomainModel): QuizPointsUIModel {
         return QuizPointsUIModel(
             id = model.id,
